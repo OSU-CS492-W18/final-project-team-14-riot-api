@@ -45,8 +45,8 @@ public class ForecastItemDetailActivity extends AppCompatActivity {
                 getString(R.string.pref_location_default_value)
         );
         String temperatureUnitsValue = sharedPreferences.getString(
-                getString(R.string.pref_units_key),
-                getString(R.string.pref_units_default_value)
+                getString(R.string.pref_region_key),
+                getString(R.string.pref_region_default_value)
         );
         mTemperatureUnitsAbbr = OpenWeatherMapUtils.getTemperatureUnitsAbbr(this, temperatureUnitsValue);
 

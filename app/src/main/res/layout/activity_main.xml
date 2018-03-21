@@ -45,7 +45,7 @@
             android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_forecast_items"
+                android:id="@+id/rv_match_items"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -81,12 +81,6 @@
             android:id="@+id/main_nav_rv"
             android:layout_height="match_parent"
             android:layout_width="match_parent" />
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:drawableLeft="@drawable/ic_nav_settings"-->
-            <!--android:text="@string/action_settings" />-->
 
     </LinearLayout>
 

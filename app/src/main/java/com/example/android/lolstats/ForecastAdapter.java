@@ -74,8 +74,8 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         public void bind(OpenWeatherMapUtils.ForecastItem forecastItem) {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
             String temperatureUnitsValue = sharedPreferences.getString(
-                    mContext.getString(R.string.pref_units_key),
-                    mContext.getString(R.string.pref_units_default_value)
+                    mContext.getString(R.string.pref_region_key),
+                    mContext.getString(R.string.pref_region_default_value)
             );
             String temperatureUnitsAbbr = OpenWeatherMapUtils.getTemperatureUnitsAbbr(mContext, temperatureUnitsValue);
 

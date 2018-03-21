@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
 
         mLoadingIndicatorPB = findViewById(R.id.pb_loading_indicator);
         mLoadingErrorMessageTV = findViewById(R.id.tv_loading_error_message);
-        mForecastItemsRV = findViewById(R.id.rv_forecast_items);
+        mForecastItemsRV = findViewById(R.id.rv_match_items);
 
         mForecastAdapter = new ForecastAdapter(this, this);
         mForecastItemsRV.setAdapter(mForecastAdapter);
@@ -117,9 +117,9 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         switch (item.getItemId()) {
-            case R.id.action_location:
-                showForecastLocationInMap();
-                return true;
+//            case R.id.action_location:
+//                showForecastLocationInMap();
+//                return true;
             case R.id.action_settings:
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
                 startActivity(settingsIntent);
@@ -135,8 +135,8 @@ public class MainActivity extends AppCompatActivity
                 getString(R.string.pref_location_default_value)
         );
         String temperatureUnits = sharedPreferences.getString(
-                getString(R.string.pref_units_key),
-                getString(R.string.pref_units_default_value)
+                getString(R.string.pref_region_key),
+                getString(R.string.pref_region_default_value)
         );
 
         mForecastLocationTV.setText(forecastLocation);
