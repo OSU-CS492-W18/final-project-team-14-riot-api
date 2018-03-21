@@ -1,4 +1,4 @@
-package com.example.android.weatherwithsqlite;
+package com.example.android.lolstats;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.weatherwithsqlite.utils.OpenWeatherMapUtils;
+import com.example.android.lolstats.utils.OpenWeatherMapUtils;
 
 import java.text.DateFormat;
 import java.util.ArrayList;

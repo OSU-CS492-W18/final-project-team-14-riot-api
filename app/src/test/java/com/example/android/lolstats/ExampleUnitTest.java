@@ -1,4 +1,4 @@
-package com.example.android.weatherwithsqlite;
+package com.example.android.lolstats;
 
 import org.junit.Test;
 

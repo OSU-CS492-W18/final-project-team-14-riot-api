@@ -1,4 +1,4 @@
-package com.example.android.weatherwithsqlite;
+package com.example.android.lolstats;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

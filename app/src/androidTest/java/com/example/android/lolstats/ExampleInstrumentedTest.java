@@ -1,4 +1,4 @@
-package com.example.android.weatherwithsqlite;
+package com.example.android.lolstats;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

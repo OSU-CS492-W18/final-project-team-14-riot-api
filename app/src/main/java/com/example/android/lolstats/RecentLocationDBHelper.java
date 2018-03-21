@@ -1,10 +1,10 @@
-package com.example.android.weatherwithsqlite;
+package com.example.android.lolstats;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.android.weatherwithsqlite.utils.LocationContract;
+import com.example.android.lolstats.utils.LocationContract;
 
 /**
  * Created by Nick Giles on 3/11/2018.

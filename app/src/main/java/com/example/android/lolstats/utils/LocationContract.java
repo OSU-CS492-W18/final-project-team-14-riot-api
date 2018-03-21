@@ -1,4 +1,4 @@
-package com.example.android.weatherwithsqlite.utils;
+package com.example.android.lolstats.utils;
 
 import android.provider.BaseColumns;
 

@@ -1,17 +1,12 @@
-package com.example.android.weatherwithsqlite;
+package com.example.android.lolstats;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import com.example.android.weatherwithsqlite.utils.LocationContract;
 
 import java.util.ArrayList;
 

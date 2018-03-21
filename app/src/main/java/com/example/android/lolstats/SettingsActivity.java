@@ -1,4 +1,4 @@
-package com.example.android.weatherwithsqlite;
+package com.example.android.lolstats;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

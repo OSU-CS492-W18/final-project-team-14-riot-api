@@ -1,11 +1,11 @@
-package com.example.android.weatherwithsqlite;
+package com.example.android.lolstats;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
-import com.example.android.weatherwithsqlite.utils.NetworkUtils;
+import com.example.android.lolstats.utils.NetworkUtils;
 
 import java.io.IOException;
 
