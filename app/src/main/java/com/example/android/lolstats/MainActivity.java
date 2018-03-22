@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = MainActivity.class.getSimpleName();
 //    private static final String FORECAST_URL_KEY = "forecastURL";
     private static final String STATS_URL_KEY = "statsURL";
-    private static final int FORECAST_LOADER_ID = 0;
+    private static final int STATS_LOADER_ID = 0;
 
     private TextView mForecastLocationTV;
     private RecyclerView mForecastItemsRV;
@@ -150,9 +150,9 @@ public class MainActivity extends AppCompatActivity
         loaderArgs.putString(STATS_URL_KEY, StatsURL);
         LoaderManager loaderManager = getSupportLoaderManager();
         if (initialLoad) {
-            loaderManager.initLoader(FORECAST_LOADER_ID, loaderArgs, this);
+            loaderManager.initLoader(STATS_LOADER_ID, loaderArgs, this);
         } else {
-            loaderManager.restartLoader(FORECAST_LOADER_ID, loaderArgs, this);
+            loaderManager.restartLoader(STATS_LOADER_ID, loaderArgs, this);
         }
     }
 
