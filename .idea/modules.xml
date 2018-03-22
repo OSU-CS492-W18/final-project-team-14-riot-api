@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/final-project-team-14-riot-api.iml" filepath="$PROJECT_DIR$/final-project-team-14-riot-api.iml" />
-      <module fileurl="file://C:\Users\Nick Giles\AndroidStudioProjects\assignment-4-gilesni\master-assignment-4.iml" filepath="C:\Users\Nick Giles\AndroidStudioProjects\assignment-4-gilesni\master-assignment-4.iml" />
     </modules>
   </component>
 </project>
