@@ -22,11 +22,11 @@ public class RiotUtils {
 
     private static final String  RIOT_API_APPID = "RGAPI-a390c6ea-a5cf-48c2-a411-fc4af4b3471c";
 
-    public String getRiotURL(String region) {
+    public static String getRiotURL(String region) {
         return HTTPS + region + RIOT_BASE_URL;
     }
 
-    public String buildSummonerSearchURL(String summonerName, String region) {
+    public static String buildSummonerSearchURL(String summonerName, String region) {
         String riotUrl = getRiotURL(region);
         return Uri.parse(riotUrl).buildUpon()
                 .appendEncodedPath(RIOT_SUMMONER_SEARCH_PATH)
@@ -35,7 +35,7 @@ public class RiotUtils {
                 .build().toString();
     }
 
-    public String buildRecentMatchesURL(String accountID, String region) {
+    public static String buildRecentMatchesURL(String accountID, String region) {
         String riotURL = getRiotURL(region);
         return Uri.parse(riotURL).buildUpon()
                 .appendEncodedPath(RIOT_RECENT_MATCHES_PATH_START)
@@ -45,7 +45,7 @@ public class RiotUtils {
                 .build().toString();
     }
 
-    public String buildDetailedMatchURL(String matchID, String region) {
+    public static String buildDetailedMatchURL(String matchID, String region) {
         String riotURL = getRiotURL(region);
         return Uri.parse(riotURL).buildUpon()
                 .appendEncodedPath(RIOT_MATCH_PATH)
@@ -54,7 +54,7 @@ public class RiotUtils {
                 .build().toString();
     }
 
-    public String buildChampionDataURL(String championID, String region) {
+    public static String buildChampionDataURL(String championID, String region) {
         String riotURL = getRiotURL(region);
         return Uri.parse(riotURL).buildUpon()
                 .appendEncodedPath(RIOT_CHAMPION_DATA)
