@@ -94,6 +94,9 @@ public class MainActivity extends AppCompatActivity
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         mNavigationViewAdapter.updateRecentLocations(getRecentLocations());
+        //mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
+
+
         loadForecast(sharedPreferences, true);
 
         Button searchButton = (Button)findViewById(R.id.btn_search);
@@ -109,6 +112,8 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
+        mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
     }
 
     public void updateSummonerInDatabase(String summoner) {
@@ -260,9 +265,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        addLocationToDB(sharedPreferences);
-        mNavigationViewAdapter.updateRecentLocations(getRecentLocations());
-        loadForecast(sharedPreferences, false);
+//        addLocationToDB(sharedPreferences);
+//        mNavigationViewAdapter.updateRecentLocations(getRecentLocations());
+//        loadForecast(sharedPreferences, false);
     }
 
     private ArrayList<String> getRecentLocations() {
@@ -287,23 +292,35 @@ public class MainActivity extends AppCompatActivity
     }
 
     private ArrayList<String> getRecentSummonerSearches() {
-        Cursor cursor = mDB.query(
-                dbContract.SavedSummoners.TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                dbContract.SavedSummoners.COLUMN_TIMESTAMP + " DESC"
-        );
-
         ArrayList<String> recentSummoners = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            String summoner;
-            summoner = cursor.getString(cursor.getColumnIndex(dbContract.SavedSummoners.COLUMN_SUMMONER));
-            recentSummoners.add(summoner);
+
+
+        try {
+            Log.d(TAG, "table name: " + dbContract.SavedSummoners.TABLE_NAME);
+
+            Cursor cursor = mDB.query(
+                    dbContract.SavedSummoners.TABLE_NAME,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    dbContract.SavedSummoners.COLUMN_TIMESTAMP + " DESC"
+            );
+
+
+            while (cursor.moveToNext()) {
+                String summoner;
+                summoner = cursor.getString(cursor.getColumnIndex(dbContract.SavedSummoners.COLUMN_SUMMONER));
+                recentSummoners.add(summoner);
+            }
+            cursor.close();
+
         }
-        cursor.close();
+        catch (Exception e) {
+            Log.d(TAG, "exception in DB code: " + e);
+        }
+
         return recentSummoners;
     }
 
