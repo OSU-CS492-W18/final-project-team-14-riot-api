@@ -117,9 +117,6 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         switch (item.getItemId()) {
-            case R.id.action_location:
-                showForecastLocationInMap();
-                return true;
             case R.id.action_settings:
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
                 startActivity(settingsIntent);
@@ -153,20 +150,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void showForecastLocationInMap() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String forecastLocation = sharedPreferences.getString(
-                getString(R.string.pref_location_key),
-                getString(R.string.pref_location_default_value)
-        );
-        Uri geoUri = Uri.parse("geo:0,0").buildUpon()
-                .appendQueryParameter("q", forecastLocation)
-                .build();
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, geoUri);
-        if (mapIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(mapIntent);
-        }
-    }
 
     @Override
     public Loader<String> onCreateLoader(int id, Bundle args) {
