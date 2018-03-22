@@ -56,15 +56,6 @@ public class RiotUtils {
                 .build().toString();
     }
 
-    public static String buildChampionDataURL(long championID, String region) {
-        String riotURL = getRiotURL(region);
-        return Uri.parse(riotURL).buildUpon()
-                .appendEncodedPath(RIOT_CHAMPION_DATA)
-                .appendPath(String.valueOf(championID))
-                .appendQueryParameter(RIOT_API_APPID_PARAM, RIOT_API_APPID)
-                .build().toString();
-    }
-
     public static class SummonerDataResults implements Serializable {
         public String name;
         public long accountId;

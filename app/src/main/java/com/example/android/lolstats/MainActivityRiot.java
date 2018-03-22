@@ -42,10 +42,6 @@ public class MainActivityRiot extends AppCompatActivity implements LoaderManager
     private static final int SUMMONER_LOADER_ID = 0;
     private static final String RECENT_MATCH_URL_KEY = "recentMatchURL";
     private static final int RECENT_MATCH_LOADER_ID = 1;
-    private static final String DETAILED_MATCH_URL_KEY = "detailedMatchURL";
-    private static final int DETAILED_MATCH_LOADER_ID = 2;
-    private static final String CHAMPION_DATA_URL_KEY = "championDataURL";
-    private static final int CHAMPION_DATA_LOADER_ID = 3;
 
     private TextView mSummonerTV;
     private RecyclerView mRecentMatchesRV;
@@ -57,8 +53,6 @@ public class MainActivityRiot extends AppCompatActivity implements LoaderManager
 //    private ActionBarDrawerToggle mDrawerToggle;
     private boolean SummonerInitialLoad = true;
     private boolean RecentMatchInitialLoad = true;
-    private boolean DetailedMatchInitialLoad = true;
-    private boolean ChampionDataInitialLoad = true;
 
     //private SQLiteDatabase mDB;
 
@@ -137,8 +131,7 @@ public class MainActivityRiot extends AppCompatActivity implements LoaderManager
 
             RiotUtils.MatchData[] matchData = RiotUtils.parseRecentMatchDataJSON(data);
 
-
-
+            //set The adapter for the matchData
         }
 
         else {
@@ -149,6 +142,6 @@ public class MainActivityRiot extends AppCompatActivity implements LoaderManager
 
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
-
+        //We don't have to do anything here.
     }
 }
