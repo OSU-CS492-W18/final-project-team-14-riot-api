@@ -54,11 +54,9 @@ public class RiotUtils {
                 .build().toString();
     }
 
-    public static String buildChampionDataURL(long championID, String region) {
-        String riotURL = getRiotURL(region);
+    public static String buildChampionDataURL() {
+        String riotURL = "https://na1.api.riotgames.com/lol/static-data/v3/champions?locale=en_US&dataById=false&api_key=RGAPI-bf5e4831-5d54-4ce0-a379-797e8c7db738";
         return Uri.parse(riotURL).buildUpon()
-                .appendEncodedPath(RIOT_CHAMPION_DATA)
-                .appendPath(String.valueOf(championID))
                 .appendQueryParameter(RIOT_API_APPID_PARAM, RIOT_API_APPID)
                 .build().toString();
     }
