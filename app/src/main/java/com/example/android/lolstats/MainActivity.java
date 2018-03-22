@@ -103,10 +103,53 @@ public class MainActivity extends AppCompatActivity
                 String searchQuery = mSearchBoxET.getText().toString();
                 if (!TextUtils.isEmpty(searchQuery)) {
                     //saveSummonner(searchQuery);
+                    updateSummonerInDatabase(searchQuery);
+                    mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
 
                 }
             }
         });
+    }
+
+    public void updateSummonerInDatabase(String summoner) {
+        String summonerToSave = summoner;
+
+
+        dbHelper dbHelper = new dbHelper(this);
+        mDB = dbHelper.getWritableDatabase();
+
+        // check to see if it's already saved in the database
+        boolean isSaved = false;
+
+        if(summonerToSave != null) {
+
+
+            String sqlSelection = dbContract.SavedSummoners.COLUMN_SUMMONER + " = ?";
+            String[] sqlSelectionArgs = {summonerToSave};
+            Cursor cursor = mDB.query(
+                    dbContract.SavedSummoners.TABLE_NAME,
+                    null,
+                    sqlSelection,
+                    sqlSelectionArgs,
+                    null,
+                    null,
+                    null
+            );
+            isSaved = cursor.getCount() > 0;
+            cursor.close();
+
+            Log.d(TAG, "isSaved:  " + isSaved);
+
+
+            if (!(isSaved)) {
+                ContentValues row = new ContentValues();
+                row.put(dbContract.SavedSummoners.COLUMN_SUMMONER, summonerToSave);
+                mDB.insert(dbContract.SavedSummoners.TABLE_NAME, null, row);
+            } else {
+                Log.d(TAG, "summoner already saved in DB");
+            }
+
+        }
     }
 
     @Override
@@ -243,6 +286,27 @@ public class MainActivity extends AppCompatActivity
         return recentLocations;
     }
 
+    private ArrayList<String> getRecentSummonerSearches() {
+        Cursor cursor = mDB.query(
+                dbContract.SavedSummoners.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                dbContract.SavedSummoners.COLUMN_TIMESTAMP + " DESC"
+        );
+
+        ArrayList<String> recentSummoners = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            String summoner;
+            summoner = cursor.getString(cursor.getColumnIndex(dbContract.SavedSummoners.COLUMN_SUMMONER));
+            recentSummoners.add(summoner);
+        }
+        cursor.close();
+        return recentSummoners;
+    }
+
     private long addLocationToDB(SharedPreferences sharedPreferences) {
         String forecastLocation = sharedPreferences.getString(
                 getString(R.string.pref_location_key),
@@ -300,16 +364,5 @@ public class MainActivity extends AppCompatActivity
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-//    private void deleteLocationFromDB(SharedPreferences sharedPreferences) {
-//        String forecastLocation = sharedPreferences.getString(
-//                getString(R.string.pref_location_key),
-//                getString(R.string.pref_location_default_value)
-//        );
-//
-//        if (forecastLocation != null) {
-//            String sqlSelection = LocationContract.RecentLocation.COLUMN_LOCATION_NAME + " = ?";
-//            String[] sqlSelectionArgs = {forecastLocation};
-//            mDB.delete(LocationContract.RecentLocation.TABLE_NAME, sqlSelection, sqlSelectionArgs);
-//        }
-//    }
+
 }
