@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity
                 if (!TextUtils.isEmpty(searchQuery)) {
                     //saveSummonner(searchQuery);
                     updateSummonerInDatabase(searchQuery);
+                    mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
 
                 }
             }
@@ -283,6 +284,27 @@ public class MainActivity extends AppCompatActivity
         }
         cursor.close();
         return recentLocations;
+    }
+
+    private ArrayList<String> getRecentSummonerSearches() {
+        Cursor cursor = mDB.query(
+                dbContract.SavedSummoners.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                dbContract.SavedSummoners.COLUMN_TIMESTAMP + " DESC"
+        );
+
+        ArrayList<String> recentSummoners = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            String summoner;
+            summoner = cursor.getString(cursor.getColumnIndex(dbContract.SavedSummoners.COLUMN_SUMMONER));
+            recentSummoners.add(summoner);
+        }
+        cursor.close();
+        return recentSummoners;
     }
 
     private long addLocationToDB(SharedPreferences sharedPreferences) {
