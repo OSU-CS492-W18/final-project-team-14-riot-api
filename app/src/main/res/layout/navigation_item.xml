@@ -10,8 +10,8 @@
         android:padding="8dp"
         android:textSize="30sp"
         android:textColor="#000"
-        android:drawableStart="@drawable/ic_nav_city"
-        android:drawableLeft="@drawable/ic_nav_city"/>
+        android:drawableStart="@drawable/ic_search_summoner"
+        android:drawableLeft="@drawable/ic_search_summoner"/>
 
     <View
         android:layout_width="match_parent"
