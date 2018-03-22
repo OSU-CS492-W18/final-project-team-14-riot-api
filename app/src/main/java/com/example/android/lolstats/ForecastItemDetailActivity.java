@@ -41,8 +41,8 @@ public class ForecastItemDetailActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mForecastLocation = sharedPreferences.getString(
-                getString(R.string.pref_location_key),
-                getString(R.string.pref_location_default_value)
+                getString(R.string.pref_summoner_key),
+                getString(R.string.pref_summoner_default_value)
         );
         String temperatureUnitsValue = sharedPreferences.getString(
                 getString(R.string.pref_region_key),

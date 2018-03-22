@@ -66,8 +66,8 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
 
         public ForecastItemViewHolder(View itemView) {
             super(itemView);
-            mForecastDateTV = itemView.findViewById(R.id.tv_forecast_date);
-            mForecastTempDescriptionTV = itemView.findViewById(R.id.tv_forecast_temp_description);
+            mForecastDateTV = itemView.findViewById(R.id.tv_match_date);
+//            mForecastTempDescriptionTV = itemView.findViewById(R.id.tv_forecast_temp_description);
             itemView.setOnClickListener(this);
         }
 
@@ -82,7 +82,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
             String dateString = mDateFormatter.format(forecastItem.dateTime);
             String detailString = forecastItem.temperature + temperatureUnitsAbbr + " - " + forecastItem.description;
             mForecastDateTV.setText(dateString);
-            mForecastTempDescriptionTV.setText(detailString);
+//            mForecastTempDescriptionTV.setText(detailString);
         }
 
         @Override

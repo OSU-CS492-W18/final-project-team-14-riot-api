@@ -1,33 +1,41 @@
 <resources>
-    <string name="app_name">CS 492 Weather</string>
+    <string name="app_name">LOL Stats</string>
 
-    <string name="forecast_for">Forecast for</string>
-    <string name="loading_error_message">Woops.  We couldn\'t load your forecast.  Check your internet connection and try again.</string>
+    <string name="forecast_for">Profile for</string>
+    <string name="loading_error_message">We couldn\'t load your mathes.  Check your Summoner ID and internet connection and try again.</string>
 
-    <string name="action_share">Share forecast</string>
+    <string name="action_share">Share Match</string>
     <string name="share_chooser_title">Pick an app to share this match</string>
     <string name="action_settings">Settings</string>
 
-    <!-- Strings for units pref -->
+    <!-- Strings for region pref -->
     <string name="pref_region_key" translatable="false">pref_region</string>
-    <string name="pref_region_title">Weather units</string>
-    <string name="pref_region_imperial">Imperial</string>
-    <string name="pref_region_metric">Metric</string>
-    <string name="pref_region_kelvin">Kelvin</string>
-    <string name="pref_region_imperial_value" translatable="false">imperial</string>
-    <string name="pref_region_metric_value" translatable="false">metric</string>
-    <string name="pref_region_kelvin_value" translatable="false"></string>
-    <string name="pref_region_default_value" translatable="false">@string/pref_region_imperial_value</string>
+    <string name="pref_region_title">Player Region</string>
 
-    <string name="units_imperial">F</string>
-    <string name="units_metric">C</string>
-    <string name="units_kelvin">K</string>
+    <string name="pref_region_NA">North America</string>
+    <string name="pref_region_NA_value" translatable="false">NA1</string>
+    <string name="pref_region_default_value" translatable="false">@string/pref_region_NA_value</string>
+
+    <string name="pref_region_EUW">Europe West</string>
+    <string name="pref_region_EUW_value" translatable="false">EUW1</string>
+
+    <string name="pref_region_EUNE">Europe East</string>
+    <string name="pref_region_EUNE_value" translatable="false">EUN1</string>
+
+    <string name="pref_region_CN">China</string>
+    <string name="pref_region_CN_value" translatable="false">CN1</string>
+
+    <string name="pref_region_JP">Japan</string>
+    <string name="pref_region_JP_value" translatable="false">JP1</string>
+
+    <string name="pref_region_KR">Korea</string>
+    <string name="pref_region_KR_value" translatable="false">KR</string>
 
     <!-- Strings for location pref -->
-    <string name="pref_location_key" translatable="false">pref_location</string>
-    <string name="pref_location_title">Weather location</string>
-    <string name="pref_location_default_value">Corvallis, OR, US</string>
-
+    <string name="pref_summoner_key" translatable="false">pref_summoner</string>
+    <string name="pref_summoner_title">Summoner ID</string>
+    <string name="pref_summoner_default_value">Mr Stone97</string>
+d
     <!-- Strings for opening and closing the drawer -->
     <string name="drawer_close">close the drawer</string>
     <string name="drawer_open">open the drawer</string>

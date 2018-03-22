@@ -11,8 +11,8 @@
         android:summary="%s" />
 
     <EditTextPreference
-        android:key="@string/pref_location_key"
-        android:title="@string/pref_location_title"
-        android:defaultValue="@string/pref_location_default_value"/>
+        android:key="@string/pref_summoner_key"
+        android:title="@string/pref_summoner_title"
+        android:defaultValue="@string/pref_summoner_default_value"/>
 
 </PreferenceScreen>

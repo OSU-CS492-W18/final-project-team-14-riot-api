@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="pref_units_entries">
-        <item>@string/pref_region_imperial</item>
-        <item>@string/pref_region_metric</item>
-        <item>@string/pref_region_kelvin</item>
+        <item>@string/pref_region_NA</item>
+        <item>@string/pref_region_EUNE</item>
+        <item>@string/pref_region_EUW</item>
+        <item>@string/pref_region_CN</item>
+        <item>@string/pref_region_KR</item>
+        <item>@string/pref_region_JP</item>
     </string-array>
 
     <string-array name="pref_units_values">
-        <item>@string/pref_region_imperial_value</item>
-        <item>@string/pref_region_metric_value</item>
-        <item>@string/pref_region_kelvin_value</item>
+        <item>@string/pref_region_NA_value</item>
+        <item>@string/pref_region_EUNE_value</item>
+        <item>@string/pref_region_EUW_value</item>
+        <item>@string/pref_region_CN_value</item>
+        <item>@string/pref_region_KR_value</item>
+        <item>@string/pref_region_JP_value</item>
     </string-array>
 </resources>
