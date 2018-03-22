@@ -23,6 +23,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Button;
+import android.text.TextUtils;
 
 import com.example.android.lolstats.utils.LocationContract;
 import com.example.android.lolstats.utils.OpenWeatherMapUtils;
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity
 
     private SQLiteDatabase mDB;
 
+    private EditText mSearchBoxET;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +61,8 @@ public class MainActivity extends AppCompatActivity
         // Remove shadow under action bar.
         getSupportActionBar().setElevation(0);
 
-        mForecastLocationTV = findViewById(R.id.tv_forecast_location);
+        //mForecastLocationTV = findViewById(R.id.tv_forecast_location);
+        mSearchBoxET = (EditText)findViewById(R.id.et_search_box);
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
@@ -89,6 +95,18 @@ public class MainActivity extends AppCompatActivity
 
         mNavigationViewAdapter.updateRecentLocations(getRecentLocations());
         loadForecast(sharedPreferences, true);
+
+        Button searchButton = (Button)findViewById(R.id.btn_search);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchQuery = mSearchBoxET.getText().toString();
+                if (!TextUtils.isEmpty(searchQuery)) {
+                    //saveSummonner(searchQuery);
+
+                }
+            }
+        });
     }
 
     @Override
@@ -139,7 +157,7 @@ public class MainActivity extends AppCompatActivity
                 getString(R.string.pref_units_default_value)
         );
 
-        mForecastLocationTV.setText(forecastLocation);
+        //mForecastLocationTV.setText(forecastLocation);
         mLoadingIndicatorPB.setVisibility(View.VISIBLE);
 
         String forecastURL = OpenWeatherMapUtils.buildForecastURL(forecastLocation, temperatureUnits);
