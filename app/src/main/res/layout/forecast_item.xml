@@ -8,27 +8,18 @@
 
     <TextView
         android:id="@+id/tv_match_date"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:padding="8dp"
         android:text="Month/Day/Year"
         android:textColor="#000"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/match_role"
-            android:textAlignment="center"
-            android:padding="8dp"
-            android:textColor="#000"
-            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/tv_role"
@@ -39,8 +30,14 @@
             android:text="Role"
             android:textAlignment="center"
             android:textColor="#000"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
+
+    <View
+    android:layout_width="wrap_content"
+    android:layout_height="2dp"
+    android:paddingTop="2dp"
+    android:background="@color/colorAccent"/>
 
 </LinearLayout>
