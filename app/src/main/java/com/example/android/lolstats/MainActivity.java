@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -71,8 +72,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //Remove shadow under action bar
         getSupportActionBar().setElevation(0);
 
-        mLoadingErrorMessage = (TextView)findViewById(R.id.tv_loading_error_message);
-
         mSearchBoxET = (EditText)findViewById(R.id.et_search_box);
         mSummonerTV = findViewById(R.id.tv_summoner_name);
 
@@ -107,39 +106,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
 
-        // load default summoner when app is first launched
-        String region;
-        String savedUser;
-
-        region = sharedPreferences.getString(
-                getString(R.string.pref_region_key),
-                ""
-        );
-        Log.d(TAG, "REGION: " + region);
-
-        savedUser = sharedPreferences.getString(
+        String savedUser = sharedPreferences.getString(
                 getString(R.string.pref_summoner_key),
-                ""
+                getString(R.string.pref_summoner_default_value)
         );
-        Log.d(TAG, "SUMMONER: " + savedUser);
 
-        // default to NA if no region is selected
-        if(region.equals("")){
-            region = "NA1";
-        }
-
-        loadSummoner(savedUser, region);
+        loadSummoner(savedUser);
 
         Button searchButton = (Button)findViewById(R.id.btn_search);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String searchQuery = mSearchBoxET.getText().toString();
+                mSearchBoxET.setText("");
                 if (!TextUtils.isEmpty(searchQuery)) {
                     //saveSummoner(searchQuery);
                     //updateSummonerInDatabase(searchQuery);
                     //mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
-                    loadSummoner(searchQuery, "NA1");
+                    loadSummoner(searchQuery);
                 }
             }
         });
@@ -147,8 +131,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
     }
 
-    public void loadSummoner(String summonerName, String region) {
+    public void loadSummoner(String summonerName) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        String region = sharedPreferences.getString(
+                getString(R.string.pref_region_key),
+                getString(R.string.pref_region_default_value)
+        );
 
         mLoadingPB.setVisibility(View.VISIBLE);
 
@@ -189,6 +178,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mLoadingPB.setVisibility(View.INVISIBLE);
         //Handles the return for the Summoner Data call
         if (data != null && loader.getId() == 0) {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+            String region = sharedPreferences.getString(
+                    getString(R.string.pref_region_key),
+                    getString(R.string.pref_region_default_value)
+            );
+
             Log.d(TAG, "summonerData: " + data);
             mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
 
@@ -196,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             Log.d(TAG, "dataResults.name: " + dataResults.name);
 
             mSummonerTV.setText(dataResults.name);
-            String recentMatchURL = RiotUtils.buildRecentMatchesURL(dataResults.accountId, "NA1");
+            String recentMatchURL = RiotUtils.buildRecentMatchesURL(dataResults.accountId, region);
 
             Bundle loaderArgs = new Bundle();
             loaderArgs.putString(RECENT_MATCH_URL_KEY, recentMatchURL);
@@ -234,9 +230,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Log.d(TAG, "ERROR DATA NOT FOUND");
                 mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
             }
-
-
-
 
         }
         catch(Exception e) {
@@ -283,33 +276,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public void onNavigationItemClicked(String location) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String region;
-        String savedUser;
-
-        region = sharedPreferences.getString(
-                getString(R.string.pref_region_key),
-                ""
-        );
-        Log.d(TAG, "REGION: " + region);
-
-        savedUser = sharedPreferences.getString(
-                getString(R.string.pref_summoner_key),
-                ""
-        );
-        Log.d(TAG, "SUMMONER: " + savedUser);
-
-
-        Log.d(TAG, "NAV ITEM CLICKED");
-
-        // default to NA if no region is selected
-        if(region.equals("")){
-            region = "NA1";
-        }
-
-        loadSummoner(location, "NA1");
-
+    public void onNavigationItemClicked(String summonerId) {
+        loadSummoner(summonerId);
         mDrawerLayout.closeDrawers();
     }
 
@@ -375,29 +343,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        String region;
-        String savedUser;
-
-        region = sharedPreferences.getString(
-                getString(R.string.pref_region_key),
-                ""
-        );
-        Log.d(TAG, "REGION: " + region);
-
-        savedUser = sharedPreferences.getString(
-                getString(R.string.pref_summoner_key),
-                ""
-        );
-        Log.d(TAG, "SUMMONER: " + savedUser);
-
-
-        // default to NA if no region is selected
-        if(region.equals("")){
-            region = "NA1";
+        if (key.equals(getString(R.string.pref_summoner_key))) {
+            String summoner = sharedPreferences.getString(
+                    getString(R.string.pref_summoner_key),
+                    getString(R.string.pref_summoner_default_value)
+            );
+            loadSummoner(summoner);
         }
-
-        loadSummoner(savedUser, region);
-
     }
 
     @Override
