@@ -17,8 +17,14 @@ public class RiotUtils {
     private static final String RIOT_RECENT_MATCHES_PATH_START = "match/v3/matchlists/by-account";
     private static final String RIOT_RECENT_MATCHES_PATH_END = "recent";
     private static final String RIOT_MATCH_PATH = "match/v3/matches";
-    private static final String RIOT_CHAMPION_DATA = "static-data/v3/champions";
+
     private static final String RIOT_API_APPID_PARAM = "api_key";
+
+    private static final String RIOT_CHAMPION_BASE_URL = "https://na1.api.riotgames.com/lol/static-data/v3/champions";
+    private static final String RIOT_CHAMPION_LOCALE_PARAM = "locale";
+    private static final String RIOT_CHAMPION_LOCALE = "en_US";
+    private static final String RIOT_CHAMPION_DATABYID_PARAM = "dataById";
+    private static final String RIOT_CHAMPION_DATABYID = "false";
 
     private static final String  RIOT_API_APPID = "RGAPI-bf5e4831-5d54-4ce0-a379-797e8c7db738";
 
@@ -28,7 +34,7 @@ public class RiotUtils {
         return HTTPS + region + RIOT_BASE_URL;
     }
 
-    public static String buildSummonerSearchURL(long summonerName, String region) {
+    public static String buildSummonerSearchURL(String summonerName, String region) {
         String riotUrl = getRiotURL(region);
         return Uri.parse(riotUrl).buildUpon()
                 .appendEncodedPath(RIOT_SUMMONER_SEARCH_PATH)
@@ -56,6 +62,14 @@ public class RiotUtils {
                 .build().toString();
     }
 
+    public static String buildChampionURL() {
+        return Uri.parse(RIOT_CHAMPION_BASE_URL).buildUpon()
+                .appendQueryParameter(RIOT_CHAMPION_LOCALE_PARAM, RIOT_CHAMPION_LOCALE)
+                .appendQueryParameter(RIOT_CHAMPION_DATABYID_PARAM, RIOT_CHAMPION_DATABYID)
+                .appendQueryParameter(RIOT_API_APPID_PARAM, RIOT_API_APPID)
+                .build().toString();
+    }
+
     public static class SummonerDataResults implements Serializable {
         public String name;
         public long accountId;
@@ -70,6 +84,7 @@ public class RiotUtils {
         public long timestamp;
         public long gameId;
         public String lane;
+        public String championName;
     }
 
     public static class DetailedMatchData {
@@ -110,6 +125,7 @@ public class RiotUtils {
 
     public static class ChampionData {
         public String name;
+        public long id
     }
 
     public static SummonerDataResults parseSummonerDataJSON(String summonerJSON) {
