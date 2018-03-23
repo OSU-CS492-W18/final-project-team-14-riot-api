@@ -131,8 +131,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 String searchQuery = mSearchBoxET.getText().toString();
                 if (!TextUtils.isEmpty(searchQuery)) {
                     //saveSummoner(searchQuery);
-                    updateSummonerInDatabase(searchQuery);
-                    mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
+                    //updateSummonerInDatabase(searchQuery);
+                    //mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
                     loadSummoner(searchQuery, "NA1");
                 }
             }
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     public void loadSummoner(String summonerName, String region) {
-        
+
 
         mLoadingPB.setVisibility(View.VISIBLE);
 
@@ -158,6 +158,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         } else {
             loaderManager.restartLoader(SUMMONER_LOADER_ID, loaderArgs, this);
         }
+
+        // updated database with search history
+        updateSummonerInDatabase(summonerName);
+        // update nav bar recent searches
+        mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
     }
 
     @NonNull
@@ -364,6 +369,28 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        String region;
+        String savedUser;
+
+        region = sharedPreferences.getString(
+                getString(R.string.pref_region_key),
+                ""
+        );
+        Log.d(TAG, "REGION: " + region);
+
+        savedUser = sharedPreferences.getString(
+                getString(R.string.pref_summoner_key),
+                ""
+        );
+        Log.d(TAG, "SUMMONER: " + savedUser);
+
+
+        // default to NA if no region is selected
+        if(region.equals("")){
+            region = "NA1";
+        }
+
+        loadSummoner(savedUser, region);
 
     }
 
