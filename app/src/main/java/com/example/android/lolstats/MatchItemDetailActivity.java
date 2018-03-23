@@ -137,6 +137,11 @@ public class MatchItemDetailActivity extends AppCompatActivity {
         }
     }
 
+    public String buildKDA (RiotUtils.Stats item){
+        String formattedDateTime = item.kills + " / " + item.deaths + " / " + item.assists;
+        return formattedDateTime;
+    }
+
     public void loadDetailedMatch(long gameId, String region) {
         mLoadingPB.setVisibility(View.VISIBLE);
 
@@ -186,11 +191,11 @@ public class MatchItemDetailActivity extends AppCompatActivity {
                 mBlueTeamSummonerTV3.setText(mDetailedMatchItem.participantIdentities[2].player.summonerName);
                 mBlueTeamSummonerTV4.setText(mDetailedMatchItem.participantIdentities[3].player.summonerName);
                 mBlueTeamSummonerTV5.setText(mDetailedMatchItem.participantIdentities[4].player.summonerName);
-//            mBlueTeamKdaTV1.setText(mDetailedMatchItem);
-//            mBlueTeamKdaTV2.setText(mDetailedMatchItem);
-//            mBlueTeamKdaTV3.setText(mDetailedMatchItem);
-//            mBlueTeamKdaTV4.setText(mDetailedMatchItem);
-//            mBlueTeamKdaTV5.setText(mDetailedMatchItem);
+                mBlueTeamKdaTV1.setText(buildKDA(mDetailedMatchItem.participants[0].stats));
+                mBlueTeamKdaTV2.setText(buildKDA(mDetailedMatchItem.participants[1].stats));
+                mBlueTeamKdaTV3.setText(buildKDA(mDetailedMatchItem.participants[2].stats));
+                mBlueTeamKdaTV4.setText(buildKDA(mDetailedMatchItem.participants[3].stats));
+                mBlueTeamKdaTV5.setText(buildKDA(mDetailedMatchItem.participants[4].stats));
                 mBlueTeamCsTV1.setText(mDetailedMatchItem.participants[0].stats.totalMinionsKilled);
                 mBlueTeamCsTV2.setText(mDetailedMatchItem.participants[1].stats.totalMinionsKilled);
                 mBlueTeamCsTV3.setText(mDetailedMatchItem.participants[2].stats.totalMinionsKilled);
@@ -202,11 +207,11 @@ public class MatchItemDetailActivity extends AppCompatActivity {
                 mRedTeamSummonerTV3.setText(mDetailedMatchItem.participantIdentities[7].player.summonerName);
                 mRedTeamSummonerTV4.setText(mDetailedMatchItem.participantIdentities[8].player.summonerName);
                 mRedTeamSummonerTV5.setText(mDetailedMatchItem.participantIdentities[9].player.summonerName);
-//            mRedTeamKdaTV1.setText(mDetailedMatchItem);
-//            mRedTeamKdaTV2.setText(mDetailedMatchItem);
-//            mRedTeamKdaTV3.setText(mDetailedMatchItem);
-//            mRedTeamKdaTV4.setText(mDetailedMatchItem);
-//            mRedTeamKdaTV5.setText(mDetailedMatchItem);
+                mRedTeamKdaTV1.setText(buildKDA(mDetailedMatchItem.participants[5].stats));
+                mRedTeamKdaTV2.setText(buildKDA(mDetailedMatchItem.participants[6].stats));
+                mRedTeamKdaTV3.setText(buildKDA(mDetailedMatchItem.participants[7].stats));
+                mRedTeamKdaTV4.setText(buildKDA(mDetailedMatchItem.participants[8].stats));
+                mRedTeamKdaTV5.setText(buildKDA(mDetailedMatchItem.participants[9].stats));
                 mRedTeamCsTV1.setText(mDetailedMatchItem.participants[5].stats.totalMinionsKilled);
                 mRedTeamCsTV2.setText(mDetailedMatchItem.participants[6].stats.totalMinionsKilled);
                 mRedTeamCsTV3.setText(mDetailedMatchItem.participants[7].stats.totalMinionsKilled);
