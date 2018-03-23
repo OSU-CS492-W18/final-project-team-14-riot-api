@@ -4,6 +4,7 @@ import android.net.Uri;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 /**
@@ -17,7 +18,7 @@ public class RiotUtils {
     private static final String RIOT_RECENT_MATCHES_PATH_START = "match/v3/matchlists/by-account";
     private static final String RIOT_RECENT_MATCHES_PATH_END = "recent";
     private static final String RIOT_MATCH_PATH = "match/v3/matches";
-    private static final String RIOT_CHAMPION_DATA = "static-data/v3/champions";
+
     private static final String RIOT_API_APPID_PARAM = "api_key";
 
     private static final String  RIOT_API_APPID = "RGAPI-bf5e4831-5d54-4ce0-a379-797e8c7db738";
@@ -28,7 +29,7 @@ public class RiotUtils {
         return HTTPS + region + RIOT_BASE_URL;
     }
 
-    public static String buildSummonerSearchURL(long summonerName, String region) {
+    public static String buildSummonerSearchURL(String summonerName, String region) {
         String riotUrl = getRiotURL(region);
         return Uri.parse(riotUrl).buildUpon()
                 .appendEncodedPath(RIOT_SUMMONER_SEARCH_PATH)
@@ -66,7 +67,6 @@ public class RiotUtils {
     }
 
     public static class MatchData implements Serializable {
-        public long champion;
         public long timestamp;
         public long gameId;
         public String lane;
@@ -108,10 +108,6 @@ public class RiotUtils {
         public String totalMinionsKilled;
     }
 
-    public static class ChampionData {
-        public String name;
-    }
-
     public static SummonerDataResults parseSummonerDataJSON(String summonerJSON) {
         SummonerDataResults summonerData = gson.fromJson(summonerJSON, SummonerDataResults.class);
         return summonerData;
@@ -129,10 +125,5 @@ public class RiotUtils {
     public static DetailedMatchData parseDetailedMatchData(String detailedMatchJSON) {
         DetailedMatchData detailedMatchData = gson.fromJson(detailedMatchJSON, DetailedMatchData.class);
         return detailedMatchData;
-    }
-
-    public static ChampionData parseChampionData(String championJSON) {
-        ChampionData championData = gson.fromJson(championJSON, ChampionData.class);
-        return championData;
     }
 }

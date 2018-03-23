@@ -77,8 +77,6 @@ public class MainActivityRiot extends AppCompatActivity implements LoaderManager
         mLoadingPB = findViewById(R.id.pb_loading_indicator);
         mLoadingErrorMessageTV = findViewById(R.id.tv_loading_error_message);
         mRecentMatchesRV = findViewById(R.id.rv_match_items);
-
-
     }
 
     public void loadSummoner(String summonerName, String region) {
@@ -99,7 +97,13 @@ public class MainActivityRiot extends AppCompatActivity implements LoaderManager
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
-        return null;
+        String loaderURL = null;
+        if (args != null && id == 0) {
+            loaderURL = args.getString(SUMMONER_URL_KEY);
+        } else if (args != null && id == 1) {
+            loaderURL = args.getString(RECENT_MATCH_URL_KEY);
+        }
+        return new StatsLoader(this, loaderURL);
     }
 
     @Override
@@ -126,14 +130,13 @@ public class MainActivityRiot extends AppCompatActivity implements LoaderManager
         }
         //Handles the return for the recent Match Data call
         else if (data != null && loader.getId() == 1) {
-            mLoadingErrorMessageTV.setVisibility((View.INVISIBLE));
+            mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
 //            mForecastItemsRV.setVisibility(View.VISIBLE);
 
             RiotUtils.MatchData[] matchData = RiotUtils.parseRecentMatchDataJSON(data);
 
             //set The adapter for the matchData
         }
-
         else {
 //            mForecastItemsRV.setVisibility(View.INVISIBLE);
             mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
