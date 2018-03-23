@@ -42,8 +42,6 @@ public class MainActivityRiot extends AppCompatActivity implements LoaderManager
     private static final int SUMMONER_LOADER_ID = 0;
     private static final String RECENT_MATCH_URL_KEY = "recentMatchURL";
     private static final int RECENT_MATCH_LOADER_ID = 1;
-    private static final String CHAMPION_URL_KEY = "championURL";
-    private static final int CHAMPION_LOADER_ID = 2;
 
     private TextView mSummonerTV;
     private RecyclerView mRecentMatchesRV;
@@ -55,7 +53,6 @@ public class MainActivityRiot extends AppCompatActivity implements LoaderManager
 //    private ActionBarDrawerToggle mDrawerToggle;
     private boolean SummonerInitialLoad = true;
     private boolean RecentMatchInitialLoad = true;
-    private boolean ChampionDataInitialLoad = true;
 
     //private SQLiteDatabase mDB;
 
@@ -80,22 +77,6 @@ public class MainActivityRiot extends AppCompatActivity implements LoaderManager
         mLoadingPB = findViewById(R.id.pb_loading_indicator);
         mLoadingErrorMessageTV = findViewById(R.id.tv_loading_error_message);
         mRecentMatchesRV = findViewById(R.id.rv_match_items);
-
-        //call and create the champion database if it doesn't exist
-        loadChampionData();
-    }
-
-    public void loadChampionData() {
-        String championURL = RiotUtils.buildChampionURL();
-        Bundle loaderArgs = new Bundle();
-        loaderArgs.putString(CHAMPION_URL_KEY, championURL);
-        LoaderManager loaderManager = getSupportLoaderManager();
-        if (ChampionDataInitialLoad) {
-            ChampionDataInitialLoad = false;
-            loaderManager.initLoader(CHAMPION_LOADER_ID, loaderArgs, this);
-        } else {
-            loaderManager.restartLoader(CHAMPION_LOADER_ID, loaderArgs, this);
-        }
     }
 
     public void loadSummoner(String summonerName, String region) {
@@ -149,12 +130,6 @@ public class MainActivityRiot extends AppCompatActivity implements LoaderManager
             RiotUtils.MatchData[] matchData = RiotUtils.parseRecentMatchDataJSON(data);
 
             //set The adapter for the matchData
-        }
-        //Handles the return for ChampionData
-        else if (data != null && loader.getId() == 2){
-            mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
-
-            ArrayList<RiotUtils.ChampionData> champions = RiotUtils.parseChampionData(data);
         }
         else {
 //            mForecastItemsRV.setVisibility(View.INVISIBLE);

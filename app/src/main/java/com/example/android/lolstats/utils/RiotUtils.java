@@ -4,6 +4,7 @@ import android.net.Uri;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 /**
@@ -20,7 +21,7 @@ public class RiotUtils {
 
     private static final String RIOT_API_APPID_PARAM = "api_key";
 
-    private static final String RIOT_CHAMPION_BASE_URL = "https://na1.api.riotgames.com/lol/static-data/v3/champions";
+    private static final String RIOT_CHAMPION_BASE_URL = "https://na1.api.riotgames.com/lol/static-data/v3/Champions";
     private static final String RIOT_CHAMPION_LOCALE_PARAM = "locale";
     private static final String RIOT_CHAMPION_LOCALE = "en_US";
     private static final String RIOT_CHAMPION_DATABYID_PARAM = "dataById";
@@ -123,11 +124,6 @@ public class RiotUtils {
         public String totalMinionsKilled;
     }
 
-    public static class ChampionData {
-        public String name;
-        public long id
-    }
-
     public static SummonerDataResults parseSummonerDataJSON(String summonerJSON) {
         SummonerDataResults summonerData = gson.fromJson(summonerJSON, SummonerDataResults.class);
         return summonerData;
@@ -145,10 +141,5 @@ public class RiotUtils {
     public static DetailedMatchData parseDetailedMatchData(String detailedMatchJSON) {
         DetailedMatchData detailedMatchData = gson.fromJson(detailedMatchJSON, DetailedMatchData.class);
         return detailedMatchData;
-    }
-
-    public static ChampionData parseChampionData(String championJSON) {
-        ChampionData championData = gson.fromJson(championJSON, ChampionData.class);
-        return championData;
     }
 }
