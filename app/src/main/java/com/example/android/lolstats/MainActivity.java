@@ -247,10 +247,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onNavigationItemClicked(String location) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(getString(R.string.pref_summoner_key), location);
-        editor.apply();
+//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putString(getString(R.string.pref_summoner_key), location);
+//        editor.apply();
+        Log.d(TAG, "NAV ITEM CLICKED");
+        
+
+        loadSummoner(location, "NA1");
+
         mDrawerLayout.closeDrawers();
     }
 
