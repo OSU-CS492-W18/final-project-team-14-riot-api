@@ -17,34 +17,7 @@ import java.util.ArrayList;
 
 
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchItemViewHolder> {
-//    private RiotUtils.MatchData[] mMatchData;
-//    private OnMatchItemClickListener mMatchItemClickListener;
-//    private Context mContext;
-//
-//    public interface OnMatchItemClickListener {
-//        void onMatchItemClick(RiotUtils.MatchData matchData);
-//    }
-//
-//    public MatchAdapter(Context context, OnMatchItemClickListener clickListener) {
-//        mContext = context;
-//        mMatchItemClickListener = clickListener;
-//    }
-//
-//    public void updateForecastItem(RiotUtils.MatchData[] matchData) {
-//        mMatchData = matchData;
-//        notifyDataSetChanged();
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        if (mMatchData != null) {
-//            return mMatchData.length;
-//        } else {
-//            return 0;
-//        }
-//    }
-
-    private ArrayList<RiotUtils.MatchData> mMatchItems;
+    private RiotUtils.MatchData[] mMatchData;
     private OnMatchItemClickListener mMatchItemClickListener;
     private Context mContext;
 
@@ -57,15 +30,15 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchItemVie
         mMatchItemClickListener = clickListener;
     }
 
-    public void updateMatchItems(ArrayList<RiotUtils.MatchData> matchItems) {
-        mMatchItems = matchItems;
+    public void updateForecastItem(RiotUtils.MatchData[] matchData) {
+        mMatchData = matchData;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        if (mMatchItems != null) {
-            return mMatchItems.size();
+        if (mMatchData != null) {
+            return mMatchData.length;
         } else {
             return 0;
         }
@@ -80,25 +53,31 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchItemVie
 
     @Override
     public void onBindViewHolder(MatchItemViewHolder holder, int position) {
-        holder.bind(mMatchItems.get(position));
+        holder.bind(mMatchData[position]);
     }
 
     class MatchItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
+        private TextView mMatchRole;
+        private TextView mDate;
+        private final DateFormat mDateFormatter = DateFormat.getDateTimeInstance();
 
         public MatchItemViewHolder(View itemView) {
             super(itemView);
+            mMatchRole = itemView.findViewById(R.id.tv_role);
+            mDate = itemView.findViewById(R.id.tv_match_date);
             itemView.setOnClickListener(this);
         }
 
         public void bind(RiotUtils.MatchData matchData) {
-
+            mMatchRole.setText(matchData.lane);
+            String dateString = mDateFormatter.format(matchData.timestamp);
+            mDate.setText(dateString);
         }
 
         @Override
         public void onClick(View v) {
-            RiotUtils.MatchData matchItem = mMatchItems.get(getAdapterPosition());
-            mMatchItemClickListener.onMatchItemClick(matchItem);
+            RiotUtils.MatchData matchData = mMatchData[getAdapterPosition()];
+            mMatchItemClickListener.onMatchItemClick(matchData);
         }
     }
 
