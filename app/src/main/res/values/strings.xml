@@ -2,7 +2,7 @@
     <string name="app_name">LOL Stats</string>
 
     <string name="forecast_for">Profile for</string>
-    <string name="loading_error_message">We couldn\'t load your mathes.  Check your Summoner ID and internet connection and try again.</string>
+    <string name="loading_error_message">We couldn\'t load your matches.  Check your Summoner ID, region, and internet connection and try again.</string>
 
     <string name="action_share">Share Match</string>
     <string name="share_chooser_title">Pick an app to share this match</string>
