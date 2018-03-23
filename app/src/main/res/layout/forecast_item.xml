@@ -9,9 +9,8 @@
     <TextView
         android:id="@+id/tv_match_date"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
         android:padding="8dp"
         android:text="Month/Day/Year"
         android:textColor="#000"
@@ -23,37 +22,21 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_roll"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/match_role"/>
+
+        <TextView
+            android:id="@+id/tv_role"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="8dp"
-            android:text="Jungle"
+            android:text="Role"
             android:textAlignment="center"
             android:textColor="#000"
             android:textSize="25sp" />
 
-        <TextView
-            android:id="@+id/tv_champion"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:text="Jinx"
-            android:textAlignment="center"
-            android:textColor="#000"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/tv_vd"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:text="V"
-            android:textAlignment="center"
-            android:textColor="#000"
-            android:textSize="25sp" />
     </LinearLayout>
 
 </LinearLayout>

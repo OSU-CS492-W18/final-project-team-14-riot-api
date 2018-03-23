@@ -29,7 +29,7 @@ import com.example.android.lolstats.utils.LocationContract;
 import com.example.android.lolstats.utils.OpenWeatherMapUtils;
 import com.example.android.lolstats.utils.RiotUtils;
 
-import java.util.ArrayList
+import java.util.ArrayList;
 
 /**
  * Created by Nick Giles on 3/22/2018.
