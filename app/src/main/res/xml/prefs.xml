@@ -2,17 +2,17 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ListPreference
-        android:key="@string/pref_units_key"
-        android:title="@string/pref_units_title"
-        android:dialogTitle="@string/pref_units_title"
+        android:key="@string/pref_region_key"
+        android:title="@string/pref_region_title"
+        android:dialogTitle="@string/pref_region_title"
         android:entries="@array/pref_units_entries"
         android:entryValues="@array/pref_units_values"
-        android:defaultValue="@string/pref_units_default_value"
+        android:defaultValue="@string/pref_region_default_value"
         android:summary="%s" />
 
     <EditTextPreference
-        android:key="@string/pref_location_key"
-        android:title="@string/pref_location_title"
-        android:defaultValue="@string/pref_location_default_value"/>
+        android:key="@string/pref_summoner_key"
+        android:title="@string/pref_summoner_title"
+        android:defaultValue="@string/pref_summoner_default_value"/>
 
 </PreferenceScreen>

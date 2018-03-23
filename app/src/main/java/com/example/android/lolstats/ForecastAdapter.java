@@ -66,23 +66,23 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
 
         public ForecastItemViewHolder(View itemView) {
             super(itemView);
-            mForecastDateTV = itemView.findViewById(R.id.tv_forecast_date);
-            mForecastTempDescriptionTV = itemView.findViewById(R.id.tv_forecast_temp_description);
+            mForecastDateTV = itemView.findViewById(R.id.tv_match_date);
+//            mForecastTempDescriptionTV = itemView.findViewById(R.id.tv_forecast_temp_description);
             itemView.setOnClickListener(this);
         }
 
         public void bind(OpenWeatherMapUtils.ForecastItem forecastItem) {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
             String temperatureUnitsValue = sharedPreferences.getString(
-                    mContext.getString(R.string.pref_units_key),
-                    mContext.getString(R.string.pref_units_default_value)
+                    mContext.getString(R.string.pref_region_key),
+                    mContext.getString(R.string.pref_region_default_value)
             );
             String temperatureUnitsAbbr = OpenWeatherMapUtils.getTemperatureUnitsAbbr(mContext, temperatureUnitsValue);
 
             String dateString = mDateFormatter.format(forecastItem.dateTime);
             String detailString = forecastItem.temperature + temperatureUnitsAbbr + " - " + forecastItem.description;
             mForecastDateTV.setText(dateString);
-            mForecastTempDescriptionTV.setText(detailString);
+//            mForecastTempDescriptionTV.setText(detailString);
         }
 
         @Override

@@ -31,7 +31,7 @@ public class ForecastItemDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forecast_item_detail);
+        setContentView(R.layout.activity_detailed_match_view);
 
         mDateTV = findViewById(R.id.tv_date);
         mTempDescriptionTV = findViewById(R.id.tv_temp_description);
@@ -41,12 +41,12 @@ public class ForecastItemDetailActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mForecastLocation = sharedPreferences.getString(
-                getString(R.string.pref_location_key),
-                getString(R.string.pref_location_default_value)
+                getString(R.string.pref_summoner_key),
+                getString(R.string.pref_summoner_default_value)
         );
         String temperatureUnitsValue = sharedPreferences.getString(
-                getString(R.string.pref_units_key),
-                getString(R.string.pref_units_default_value)
+                getString(R.string.pref_region_key),
+                getString(R.string.pref_region_default_value)
         );
         mTemperatureUnitsAbbr = OpenWeatherMapUtils.getTemperatureUnitsAbbr(this, temperatureUnitsValue);
 

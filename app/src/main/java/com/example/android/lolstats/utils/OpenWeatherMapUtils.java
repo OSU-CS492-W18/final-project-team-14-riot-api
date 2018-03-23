@@ -133,12 +133,6 @@ public class OpenWeatherMapUtils {
     }
 
     public static String getTemperatureUnitsAbbr(Context context, String temperatureUnitsValue) {
-        if (temperatureUnitsValue.equals(context.getString(R.string.pref_units_kelvin_value))) {
-            return context.getString(R.string.units_kelvin);
-        } else if (temperatureUnitsValue.equals(context.getString(R.string.pref_units_metric_value))) {
-            return context.getString(R.string.units_metric);
-        } else {
-            return context.getString(R.string.units_imperial);
-        }
+            return "PlaceHolder";
     }
 }

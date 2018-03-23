@@ -9,9 +9,8 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:textSize="30sp"
-        android:textColor="#000"
-        android:drawableStart="@drawable/ic_search_summoner"
-        android:drawableLeft="@drawable/ic_search_summoner"/>
+        android:drawableLeft="@drawable/ic_action_summoner"
+        android:textColor="#000" android:drawableStart="@drawable/ic_action_summoner"/>
 
     <View
         android:layout_width="match_parent"

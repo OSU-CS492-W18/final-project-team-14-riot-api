@@ -18,13 +18,13 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EditTextPreference locationPref = (EditTextPreference)findPreference(getString(R.string.pref_location_key));
+        EditTextPreference locationPref = (EditTextPreference)findPreference(getString(R.string.pref_summoner_key));
         locationPref.setSummary(locationPref.getText());
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(getString(R.string.pref_location_key))) {
+        if (key.equals(getString(R.string.pref_summoner_key))) {
             EditTextPreference locationPref = (EditTextPreference)findPreference(key);
             locationPref.setSummary(locationPref.getText());
         }

@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity
 
         mLoadingIndicatorPB = findViewById(R.id.pb_loading_indicator);
         mLoadingErrorMessageTV = findViewById(R.id.tv_loading_error_message);
-        mForecastItemsRV = findViewById(R.id.rv_forecast_items);
+        mForecastItemsRV = findViewById(R.id.rv_match_items);
 
         mForecastAdapter = new ForecastAdapter(this, this);
         mForecastItemsRV.setAdapter(mForecastAdapter);
@@ -183,9 +183,9 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         switch (item.getItemId()) {
-            case R.id.action_location:
-                showForecastLocationInMap();
-                return true;
+//            case R.id.action_location:
+//                showForecastLocationInMap();
+//                return true;
             case R.id.action_settings:
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
                 startActivity(settingsIntent);
@@ -197,12 +197,12 @@ public class MainActivity extends AppCompatActivity
 
     public void loadForecast(SharedPreferences sharedPreferences, boolean initialLoad) {
         String forecastLocation = sharedPreferences.getString(
-                getString(R.string.pref_location_key),
-                getString(R.string.pref_location_default_value)
+                getString(R.string.pref_summoner_key),
+                getString(R.string.pref_summoner_default_value)
         );
         String temperatureUnits = sharedPreferences.getString(
-                getString(R.string.pref_units_key),
-                getString(R.string.pref_units_default_value)
+                getString(R.string.pref_region_key),
+                getString(R.string.pref_region_default_value)
         );
 
         //mForecastLocationTV.setText(forecastLocation);
@@ -222,8 +222,8 @@ public class MainActivity extends AppCompatActivity
     public void showForecastLocationInMap() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String forecastLocation = sharedPreferences.getString(
-                getString(R.string.pref_location_key),
-                getString(R.string.pref_location_default_value)
+                getString(R.string.pref_summoner_key),
+                getString(R.string.pref_summoner_default_value)
         );
         Uri geoUri = Uri.parse("geo:0,0").buildUpon()
                 .appendQueryParameter("q", forecastLocation)
@@ -326,8 +326,8 @@ public class MainActivity extends AppCompatActivity
 
     private long addLocationToDB(SharedPreferences sharedPreferences) {
         String forecastLocation = sharedPreferences.getString(
-                getString(R.string.pref_location_key),
-                getString(R.string.pref_location_default_value)
+                getString(R.string.pref_summoner_key),
+                getString(R.string.pref_summoner_default_value)
         );
 
         if (forecastLocation != null && !checkLocationInDB(forecastLocation)) {
@@ -364,7 +364,7 @@ public class MainActivity extends AppCompatActivity
     public void onNavigationItemClicked(String location) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(getString(R.string.pref_location_key), location);
+        editor.putString(getString(R.string.pref_summoner_key), location);
         editor.apply();
         mDrawerLayout.closeDrawers();
     }
@@ -380,6 +380,4 @@ public class MainActivity extends AppCompatActivity
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
-
 }
