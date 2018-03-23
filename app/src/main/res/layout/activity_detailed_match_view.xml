@@ -18,15 +18,29 @@
         android:layout_height="wrap_content"
         android:text="Month/Day/Year"
         android:textAlignment="center"
-        android:textSize="25dp" />
+        android:textSize="25sp" />
 
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/match_team_blue"
-        android:textColor="#000"
-        android:background="@color/colorBlue"
-        />
+        android:background="@color/colorBlue">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/match_team_blue"
+            android:textColor="#000"/>
+
+        <TextView
+            android:id="@+id/tv_match_outcome_status"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="#ff0004"
+            android:textAlignment="center"
+            android:text="OUTCOME"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +49,21 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBlue"
+                android:text="@string/match_players"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:background="@color/colorBlueLight">
 
             <TextView
@@ -73,6 +101,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:background="@color/colorBlueLight">
 
             <TextView
@@ -110,6 +139,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:background="@color/colorBlueLight">
 
             <TextView
@@ -147,6 +177,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:background="@color/colorBlueLight">
 
             <TextView
@@ -184,6 +215,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:background="@color/colorBlueLight">
 
             <TextView
@@ -220,16 +252,100 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorBlue"/>
-
-        <TextView
+        <!--Layout for each stat item-->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/"
-            />
+            android:orientation="vertical"
+            android:background="@color/colorBlueLight">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBlue"
+                android:text="@string/match_stats"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/towers_destroyed"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_blue_towers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/inhibitors_destroyed"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_blue_inhibitors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/barons_destroyed"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_blue_barons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/inhibitors_destroyed"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_blue_inhibitors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

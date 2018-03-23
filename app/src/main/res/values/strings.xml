@@ -41,5 +41,11 @@ d
     <string name="drawer_open">open the drawer</string>
 
     <!-- Strings for detailed match view-->
-    <string name="match_team_blue">Blue Team</string>
+    <string name="match_team_blue">Blue Team:</string>
+    <string name="match_stats">Stats:</string>
+    <string name="match_players">Summoners:</string>
+    <string name="towers_destroyed">Towers Destroyed:</string>
+    <string name="inhibitors_destroyed">Inhibitors Destroyed:</string>
+    <string name="barons_destroyed">Barons Destroyed:</string>
+
 </resources>
