@@ -9,28 +9,23 @@ import com.example.android.lolstats.utils.NetworkUtils;
 
 import java.io.IOException;
 
-/**
- * Created by hessro on 2/24/18.
- */
-
-public class ForecastLoader extends AsyncTaskLoader<String> {
-
+public class StatsLoader extends AsyncTaskLoader {
     private final static String TAG = ForecastLoader.class.getSimpleName();
 
-    private String mCachedForecastJSON;
-    private String mForecastURL;
+    private String mCachedDataJSON;
+    private String mDataURL;
 
-    public ForecastLoader(Context context, String forecastURL) {
+    public StatsLoader(Context context, String dataURL) {
         super(context);
-        mForecastURL = forecastURL;
+        mDataURL = dataURL;
     }
 
     @Override
     protected void onStartLoading() {
-        if (mForecastURL != null) {
-            if (mCachedForecastJSON != null) {
+        if (mDataURL != null) {
+            if (mCachedDataJSON != null) {
                 Log.d(TAG, "using cached forecast");
-                deliverResult(mCachedForecastJSON);
+                deliverResult(mCachedDataJSON);
             } else {
                 forceLoad();
             }
@@ -41,10 +36,10 @@ public class ForecastLoader extends AsyncTaskLoader<String> {
     @Override
     public String loadInBackground() {
         String forecastJSON = null;
-        if (mForecastURL != null) {
-            Log.d(TAG, "loading forecast from OpenWeatherMap using this URL: " + mForecastURL);
+        if (mDataURL != null) {
+            Log.d(TAG, "loading forecast from OpenWeatherMap using this URL: " + mDataURL);
             try {
-                forecastJSON = NetworkUtils.doHTTPGet(mForecastURL);
+                forecastJSON = NetworkUtils.doHTTPGet(mDataURL);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -54,7 +49,9 @@ public class ForecastLoader extends AsyncTaskLoader<String> {
 
     @Override
     public void deliverResult(@Nullable String data) {
-        mCachedForecastJSON = data;
+        mCachedDataJSON = data;
         super.deliverResult(data);
     }
 }
+
+

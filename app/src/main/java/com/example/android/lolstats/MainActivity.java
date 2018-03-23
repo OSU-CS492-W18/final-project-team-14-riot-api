@@ -23,6 +23,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Button;
+import android.text.TextUtils;
 
 import com.example.android.lolstats.utils.LocationContract;
 import com.example.android.lolstats.utils.OpenWeatherMapUtils;
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity
 
     private SQLiteDatabase mDB;
 
+    private EditText mSearchBoxET;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +61,8 @@ public class MainActivity extends AppCompatActivity
         // Remove shadow under action bar.
         getSupportActionBar().setElevation(0);
 
-        mForecastLocationTV = findViewById(R.id.tv_forecast_location);
+        //mForecastLocationTV = findViewById(R.id.tv_forecast_location);
+        mSearchBoxET = (EditText)findViewById(R.id.et_search_box);
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
@@ -88,7 +94,67 @@ public class MainActivity extends AppCompatActivity
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         mNavigationViewAdapter.updateRecentLocations(getRecentLocations());
+        //mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
+
+
         loadForecast(sharedPreferences, true);
+
+        Button searchButton = (Button)findViewById(R.id.btn_search);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchQuery = mSearchBoxET.getText().toString();
+                if (!TextUtils.isEmpty(searchQuery)) {
+                    //saveSummonner(searchQuery);
+                    updateSummonerInDatabase(searchQuery);
+                    mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
+
+                }
+            }
+        });
+
+        mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
+    }
+
+    public void updateSummonerInDatabase(String summoner) {
+        String summonerToSave = summoner;
+
+
+        dbHelper dbHelper = new dbHelper(this);
+        mDB = dbHelper.getWritableDatabase();
+
+        // check to see if it's already saved in the database
+        boolean isSaved = false;
+
+        if(summonerToSave != null) {
+
+
+            String sqlSelection = dbContract.SavedSummoners.COLUMN_SUMMONER + " = ?";
+            String[] sqlSelectionArgs = {summonerToSave};
+            Cursor cursor = mDB.query(
+                    dbContract.SavedSummoners.TABLE_NAME,
+                    null,
+                    sqlSelection,
+                    sqlSelectionArgs,
+                    null,
+                    null,
+                    null
+            );
+            isSaved = cursor.getCount() > 0;
+            cursor.close();
+
+            Log.d(TAG, "isSaved:  " + isSaved);
+
+
+            if (!(isSaved)) {
+                ContentValues row = new ContentValues();
+                row.put(dbContract.SavedSummoners.COLUMN_SUMMONER, summonerToSave);
+                mDB.insert(dbContract.SavedSummoners.TABLE_NAME, null, row);
+            } else {
+                Log.d(TAG, "summoner already saved in DB");
+            }
+
+        }
     }
 
     @Override
@@ -139,7 +205,7 @@ public class MainActivity extends AppCompatActivity
                 getString(R.string.pref_region_default_value)
         );
 
-        mForecastLocationTV.setText(forecastLocation);
+        //mForecastLocationTV.setText(forecastLocation);
         mLoadingIndicatorPB.setVisibility(View.VISIBLE);
 
         String forecastURL = OpenWeatherMapUtils.buildForecastURL(forecastLocation, temperatureUnits);
@@ -199,9 +265,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        addLocationToDB(sharedPreferences);
-        mNavigationViewAdapter.updateRecentLocations(getRecentLocations());
-        loadForecast(sharedPreferences, false);
+//        addLocationToDB(sharedPreferences);
+//        mNavigationViewAdapter.updateRecentLocations(getRecentLocations());
+//        loadForecast(sharedPreferences, false);
     }
 
     private ArrayList<String> getRecentLocations() {
@@ -223,6 +289,39 @@ public class MainActivity extends AppCompatActivity
         }
         cursor.close();
         return recentLocations;
+    }
+
+    private ArrayList<String> getRecentSummonerSearches() {
+        ArrayList<String> recentSummoners = new ArrayList<>();
+
+
+        try {
+            Log.d(TAG, "table name: " + dbContract.SavedSummoners.TABLE_NAME);
+
+            Cursor cursor = mDB.query(
+                    dbContract.SavedSummoners.TABLE_NAME,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    dbContract.SavedSummoners.COLUMN_TIMESTAMP + " DESC"
+            );
+
+
+            while (cursor.moveToNext()) {
+                String summoner;
+                summoner = cursor.getString(cursor.getColumnIndex(dbContract.SavedSummoners.COLUMN_SUMMONER));
+                recentSummoners.add(summoner);
+            }
+            cursor.close();
+
+        }
+        catch (Exception e) {
+            Log.d(TAG, "exception in DB code: " + e);
+        }
+
+        return recentSummoners;
     }
 
     private long addLocationToDB(SharedPreferences sharedPreferences) {
@@ -281,17 +380,4 @@ public class MainActivity extends AppCompatActivity
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
-//    private void deleteLocationFromDB(SharedPreferences sharedPreferences) {
-//        String forecastLocation = sharedPreferences.getString(
-//                getString(R.string.pref_summoner_key),
-//                getString(R.string.pref_summoner_default_value)
-//        );
-//
-//        if (forecastLocation != null) {
-//            String sqlSelection = LocationContract.RecentLocation.COLUMN_LOCATION_NAME + " = ?";
-//            String[] sqlSelectionArgs = {forecastLocation};
-//            mDB.delete(LocationContract.RecentLocation.TABLE_NAME, sqlSelection, sqlSelectionArgs);
-//        }
-//    }
 }
