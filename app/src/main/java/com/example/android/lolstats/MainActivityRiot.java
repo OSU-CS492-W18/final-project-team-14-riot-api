@@ -97,7 +97,13 @@ public class MainActivityRiot extends AppCompatActivity implements LoaderManager
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
-        return null;
+        String loaderURL = null;
+        if (args != null && id == 0) {
+            loaderURL = args.getString(SUMMONER_URL_KEY);
+        } else if (args != null && id == 1) {
+            loaderURL = args.getString(RECENT_MATCH_URL_KEY);
+        }
+        return new StatsLoader(this, loaderURL);
     }
 
     @Override

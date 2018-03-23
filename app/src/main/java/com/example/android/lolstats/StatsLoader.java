@@ -9,8 +9,8 @@ import com.example.android.lolstats.utils.NetworkUtils;
 
 import java.io.IOException;
 
-public class StatsLoader extends AsyncTaskLoader {
-    private final static String TAG = ForecastLoader.class.getSimpleName();
+public class StatsLoader extends AsyncTaskLoader<String> {
+    private final static String TAG = StatsLoader.class.getSimpleName();
 
     private String mCachedDataJSON;
     private String mDataURL;
