@@ -265,4 +265,45 @@ public class MainActivityRiot extends AppCompatActivity implements LoaderManager
     public void onMatchItemClick(RiotUtils.MatchData matchData) {
 
     }
+
+    public void updateSummonerInDatabase(String summoner) {
+        String summonerToSave = summoner;
+
+
+        dbHelper dbHelper = new dbHelper(this);
+        mDB = dbHelper.getWritableDatabase();
+
+        // check to see if it's already saved in the database
+        boolean isSaved = false;
+
+        if(summonerToSave != null) {
+
+
+            String sqlSelection = dbContract.SavedSummoners.COLUMN_SUMMONER + " = ?";
+            String[] sqlSelectionArgs = {summonerToSave};
+            Cursor cursor = mDB.query(
+                    dbContract.SavedSummoners.TABLE_NAME,
+                    null,
+                    sqlSelection,
+                    sqlSelectionArgs,
+                    null,
+                    null,
+                    null
+            );
+            isSaved = cursor.getCount() > 0;
+            cursor.close();
+
+            Log.d(TAG, "isSaved:  " + isSaved);
+
+
+            if (!(isSaved)) {
+                ContentValues row = new ContentValues();
+                row.put(dbContract.SavedSummoners.COLUMN_SUMMONER, summonerToSave);
+                mDB.insert(dbContract.SavedSummoners.TABLE_NAME, null, row);
+            } else {
+                Log.d(TAG, "summoner already saved in DB");
+            }
+
+        }
+    }
 }
