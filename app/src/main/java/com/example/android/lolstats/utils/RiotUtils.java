@@ -70,6 +70,7 @@ public class RiotUtils {
         public long timestamp;
         public long gameId;
         public String lane;
+        public static final String EXTRA_MATCH_ITEM = "extraMatchItem";
     }
 
     public static class DetailedMatchData {

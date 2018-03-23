@@ -20,13 +20,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity-->
-            <!--android:name="com.example.android.lolstats.MatchItemDetailActivity"-->
-            <!--android:parentActivityName="com.example.android.lolstats.MainActivity">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value="com.example.android.lolstats.MainActivity" />-->
-        <!--</activity>-->
+        <activity
+            android:name="com.example.android.lolstats.MatchItemDetailActivity"
+            android:parentActivityName="com.example.android.lolstats.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.lolstats.MainActivity" />
+        </activity>
         <activity
             android:name="com.example.android.lolstats.SettingsActivity"
             android:parentActivityName="com.example.android.lolstats.MainActivity">

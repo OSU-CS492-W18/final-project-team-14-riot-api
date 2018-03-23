@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,15 +27,18 @@ import java.text.DateFormat;
  */
 
 public class MatchItemDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+    private static final String TAG = MatchItemDetailActivity.class.getSimpleName();
 
     private static final String MATCH_HASHTAG = "#LOLStats";
     private static final DateFormat DATE_FORMATTER = DateFormat.getDateTimeInstance();
+    private RiotUtils.MatchData mMatchItem;
     private RiotUtils.DetailedMatchData mDetailedMatchItem;
-    private static final String DETAILED_MATACH_VIEW_URL_KEY = "matchviewURL";
-    private ProgressBar mLoadingIndicatorPB;
+    private static final String DETAILED_MATCH_VIEW_URL_KEY = "matchviewURL";
+    private static final int DETAILED_MATCH_VIEW_ID = 2;
+    private ProgressBar mLoadingPB;
     private TextView mLoadingErrorMessageTV;
-
-
+    private static boolean mMatchDetailInitialLoad = true;
+    private LinearLayout mContentView;
 
     private TextView mDateTV;
     private TextView mBlueTeamWinTV;
@@ -76,9 +81,15 @@ public class MatchItemDetailActivity extends AppCompatActivity implements Loader
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_match_view);
 
-        mDateTV = findViewById(R.id.tv_detailed_match_date);;
-        mBlueTeamWinTV = findViewById(R.id.tv_match_outcome_blue);;
-        mRedTeamWinTV = findViewById(R.id.tv_match_outcome_red);;
+        mDateTV = findViewById(R.id.tv_detailed_match_date);
+        mBlueTeamWinTV = findViewById(R.id.tv_match_outcome_blue);
+        mRedTeamWinTV = findViewById(R.id.tv_match_outcome_red);
+
+        mLoadingPB = findViewById(R.id.pb_loading_indicator_match_detail);
+        mLoadingErrorMessageTV = findViewById(R.id.tv_loading_error_message_match_detail);
+        mContentView = findViewById(R.id.detailed_match_content);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         mBlueTeamSummonerTV1 = findViewById(R.id.tv_detailed_name_P1);
         mBlueTeamSummonerTV2 = findViewById(R.id.tv_detailed_name_P2);
@@ -96,29 +107,51 @@ public class MatchItemDetailActivity extends AppCompatActivity implements Loader
         mBlueTeamCsTV4 = findViewById(R.id.tv_detailed_cs_P4);
         mBlueTeamCsTV5 = findViewById(R.id.tv_detailed_cs_P5);
 
-        mRedTeamSummonerTV1 = findViewById(R.id.tv_detailed_name_P1);
-        mRedTeamSummonerTV2 = findViewById(R.id.tv_detailed_name_P2);
-        mRedTeamSummonerTV3 = findViewById(R.id.tv_detailed_name_P3);
-        mRedTeamSummonerTV4 = findViewById(R.id.tv_detailed_name_P4);
-        mRedTeamSummonerTV5 = findViewById(R.id.tv_detailed_name_P5);
-        mRedTeamKdaTV1 = findViewById(R.id.tv_detailed_kda_P1);
-        mRedTeamKdaTV2 = findViewById(R.id.tv_detailed_kda_P2);
-        mRedTeamKdaTV3 = findViewById(R.id.tv_detailed_kda_P3);
-        mRedTeamKdaTV4 = findViewById(R.id.tv_detailed_kda_P4);
-        mRedTeamKdaTV5 = findViewById(R.id.tv_detailed_kda_P5);
-        mRedTeamCsTV1 = findViewById(R.id.tv_detailed_cs_P1);
-        mRedTeamCsTV2 = findViewById(R.id.tv_detailed_cs_P2);
-        mRedTeamCsTV3 = findViewById(R.id.tv_detailed_cs_P3);
-        mRedTeamCsTV4 = findViewById(R.id.tv_detailed_cs_P4);
-        mRedTeamCsTV5 = findViewById(R.id.tv_detailed_cs_P5);
+        mRedTeamSummonerTV1 = findViewById(R.id.tv_detailed_name_P6);
+        mRedTeamSummonerTV2 = findViewById(R.id.tv_detailed_name_P7);
+        mRedTeamSummonerTV3 = findViewById(R.id.tv_detailed_name_P8);
+        mRedTeamSummonerTV4 = findViewById(R.id.tv_detailed_name_P9);
+        mRedTeamSummonerTV5 = findViewById(R.id.tv_detailed_name_P10);
+        mRedTeamKdaTV1 = findViewById(R.id.tv_detailed_kda_P6);
+        mRedTeamKdaTV2 = findViewById(R.id.tv_detailed_kda_P7);
+        mRedTeamKdaTV3 = findViewById(R.id.tv_detailed_kda_P8);
+        mRedTeamKdaTV4 = findViewById(R.id.tv_detailed_kda_P9);
+        mRedTeamKdaTV5 = findViewById(R.id.tv_detailed_kda_P10);
+        mRedTeamCsTV1 = findViewById(R.id.tv_detailed_cs_P6);
+        mRedTeamCsTV2 = findViewById(R.id.tv_detailed_cs_P7);
+        mRedTeamCsTV3 = findViewById(R.id.tv_detailed_cs_P8);
+        mRedTeamCsTV4 = findViewById(R.id.tv_detailed_cs_P9);
+        mRedTeamCsTV5 = findViewById(R.id.tv_detailed_cs_P10);
 
-//        Intent intent = getIntent();
-//        if (intent != null && intent.hasExtra(RiotUtils.ForecastItem.EXTRA_FORECAST_ITEM)) {
-//            mForecastItem = (RiotUtils.ForecastItem) intent.getSerializableExtra(
-//                    OpenWeatherMapUtils.ForecastItem.EXTRA_FORECAST_ITEM
-//            );
-//            fillInLayoutText(mForecastItem);
-//        }
+        String region = sharedPreferences.getString(
+                getString(R.string.pref_region_key),
+                getString(R.string.pref_region_default_value)
+        );
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra(RiotUtils.MatchData.EXTRA_MATCH_ITEM)) {
+            mMatchItem = (RiotUtils.MatchData) intent.getSerializableExtra(
+                    RiotUtils.MatchData.EXTRA_MATCH_ITEM
+            );
+            loadDetailedMatch(mMatchItem.gameId, region);
+        }
+    }
+
+    public void loadDetailedMatch(long gameId, String region) {
+        mLoadingPB.setVisibility(View.VISIBLE);
+
+        String detailedMatchURL = RiotUtils.buildDetailedMatchURL(gameId, region);
+        Log.d(TAG, "detailedMatchURL: " + detailedMatchURL);
+
+        Bundle loaderArgs = new Bundle();
+        loaderArgs.putString(DETAILED_MATCH_VIEW_URL_KEY, detailedMatchURL);
+        LoaderManager loaderManager = getSupportLoaderManager();
+        if (mMatchDetailInitialLoad) {
+            mMatchDetailInitialLoad = false;
+            loaderManager.initLoader(DETAILED_MATCH_VIEW_ID, loaderArgs, this);
+        } else {
+            loaderManager.restartLoader(DETAILED_MATCH_VIEW_ID, loaderArgs, this);
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -162,18 +195,18 @@ public class MatchItemDetailActivity extends AppCompatActivity implements Loader
     public Loader<String> onCreateLoader(int id, Bundle args) {
         String detailedMatchViewURL = null;
         if (args != null && id == 2) {
-            detailedMatchViewURL = args.getString(DETAILED_MATACH_VIEW_URL_KEY);
+            detailedMatchViewURL = args.getString(DETAILED_MATCH_VIEW_URL_KEY);
         }
-        return new StatsLoader(this, DETAILED_MATACH_VIEW_URL_KEY);
+        return new StatsLoader(this, DETAILED_MATCH_VIEW_URL_KEY);
     }
 
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
-//        Log.d(TAG, "got forecast from loader");
-//        mLoadingIndicatorPB.setVisibility(View.INVISIBLE);
+        Log.d(TAG, "got forecast from loader");
+        mLoadingPB.setVisibility(View.INVISIBLE);
         if (data != null) {
-//            mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
-//            mForecastItemsRV.setVisibility(View.VISIBLE);
+            mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
+            mContentView.setVisibility(View.VISIBLE);
             mDetailedMatchItem = RiotUtils.parseDetailedMatchData(data);
             // set text views
             mDateTV.setText("LULDATEHOLDER");
@@ -212,8 +245,8 @@ public class MatchItemDetailActivity extends AppCompatActivity implements Loader
             mRedTeamCsTV4.setText(mDetailedMatchItem.participants[8].stats.totalMinionsKilled);
             mRedTeamCsTV5.setText(mDetailedMatchItem.participants[9].stats.totalMinionsKilled);
         } else {
-//            mForecastItemsRV.setVisibility(View.INVISIBLE);
-//            mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
+            mContentView.setVisibility(View.INVISIBLE);
+            mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
         }
     }
 

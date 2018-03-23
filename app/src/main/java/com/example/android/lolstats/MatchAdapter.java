@@ -18,7 +18,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchItemVie
     private Context mContext;
 
     public interface OnMatchItemClickListener {
-        void onMatchItemClick(RiotUtils.MatchData matchData);
+        void onMatchItemClick(RiotUtils.MatchData matchItem);
     }
 
     public MatchAdapter(Context context, OnMatchItemClickListener clickListener) {

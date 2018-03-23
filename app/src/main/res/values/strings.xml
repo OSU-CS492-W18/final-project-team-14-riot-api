@@ -52,4 +52,6 @@ d
     <string name="match_team_red">Red Team:</string>
     <string name="last_20_games">Last 20 Games: </string>
 
+    <!-- String for loading Error in the match detail screen -->
+    <string name="loading_error_message_match_detail">Sorry, we couldn\'t find your game stats.</string>
 </resources>

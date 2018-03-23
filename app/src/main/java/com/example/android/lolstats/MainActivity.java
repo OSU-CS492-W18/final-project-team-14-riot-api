@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
         Log.d(TAG, "got forecast from loader");
+        mLoadingPB.setVisibility(View.INVISIBLE);
         //Handles the return for the Summoner Data call
         if (data != null && loader.getId() == 0) {
             Log.d(TAG, "summonerData: " + data);
@@ -227,27 +228,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return recentSummoners;
     }
 
-    //returns true if Location is in the DB
-    private boolean checkLocationInDB(String forecastLocation) {
-        boolean isInDB = true;
-        if (forecastLocation != null) {
-            String sqlSelection = LocationContract.RecentLocation.COLUMN_LOCATION_NAME + " = ?";
-            String[] sqlSelectionArgs = {forecastLocation};
-            Cursor cursor = mDB.query(
-                    LocationContract.RecentLocation.TABLE_NAME,
-                    null,
-                    sqlSelection,
-                    sqlSelectionArgs,
-                    null,
-                    null,
-                    null
-            );
-            isInDB = cursor.getCount() > 0;
-            cursor.close();
-        }
-        return isInDB;
-    }
-
     @Override
     public void onNavigationItemClicked(String location) {
 //        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -275,8 +255,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public void onMatchItemClick(RiotUtils.MatchData matchData) {
-
+    public void onMatchItemClick(RiotUtils.MatchData matchItem) {
+        Intent intent = new Intent(this, MatchItemDetailActivity.class);
+        intent.putExtra(RiotUtils.MatchData.EXTRA_MATCH_ITEM, matchItem);
+        startActivity(intent);
     }
 
     public void updateSummonerInDatabase(String summoner) {
