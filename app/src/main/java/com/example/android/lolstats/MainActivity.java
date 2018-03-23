@@ -30,6 +30,8 @@ import android.widget.TextView;
 import com.example.android.lolstats.utils.LocationContract;
 import com.example.android.lolstats.utils.RiotUtils;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private boolean SummonerInitialLoad = true;
     private boolean RecentMatchInitialLoad = true;
 
+    private TextView mLoadingErrorMessage;
+
     private SQLiteDatabase mDB;
 
     @Override
@@ -66,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         //Remove shadow under action bar
         getSupportActionBar().setElevation(0);
+
+        mLoadingErrorMessage = (TextView)findViewById(R.id.tv_loading_error_message);
 
         mSearchBoxET = (EditText)findViewById(R.id.et_search_box);
         mSummonerTV = findViewById(R.id.tv_summoner_name);
@@ -217,6 +223,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         else {
             mRecentMatchesRV.setVisibility(View.INVISIBLE);
             mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
+        }
+        try {
+            Log.d(TAG, "TRYING TO PARSE JSON" );
+            JSONObject obj = new JSONObject(data);
+            String status = obj.getString("status");
+            Log.d(TAG, "STATUS: " + status);
+
+            if(status.equals("{\"message\":\"Data not found\",\"status_code\":404}")) {
+                Log.d(TAG, "ERROR DATA NOT FOUND");
+                mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
+            }
+
+
+
+
+        }
+        catch(Exception e) {
+            Log.d(TAG, "Error: could not parse JSON" );
         }
     }
 
