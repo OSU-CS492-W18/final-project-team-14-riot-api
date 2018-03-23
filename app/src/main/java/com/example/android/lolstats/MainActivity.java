@@ -101,6 +101,29 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
 
+        // load default summoner when app is first launched
+        String region;
+        String savedUser;
+
+        region = sharedPreferences.getString(
+                getString(R.string.pref_region_key),
+                ""
+        );
+        Log.d(TAG, "REGION: " + region);
+
+        savedUser = sharedPreferences.getString(
+                getString(R.string.pref_summoner_key),
+                ""
+        );
+        Log.d(TAG, "SUMMONER: " + savedUser);
+
+        // default to NA if no region is selected
+        if(region.equals("")){
+            region = "NA1";
+        }
+
+        loadSummoner(savedUser, region);
+
         Button searchButton = (Button)findViewById(R.id.btn_search);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +142,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     public void loadSummoner(String summonerName, String region) {
+        
+
         mLoadingPB.setVisibility(View.VISIBLE);
 
         String summonerURL = RiotUtils.buildSummonerSearchURL(summonerName, region);
@@ -250,12 +275,29 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onNavigationItemClicked(String location) {
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putString(getString(R.string.pref_summoner_key), location);
-//        editor.apply();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String region;
+        String savedUser;
+
+        region = sharedPreferences.getString(
+                getString(R.string.pref_region_key),
+                ""
+        );
+        Log.d(TAG, "REGION: " + region);
+
+        savedUser = sharedPreferences.getString(
+                getString(R.string.pref_summoner_key),
+                ""
+        );
+        Log.d(TAG, "SUMMONER: " + savedUser);
+
+
         Log.d(TAG, "NAV ITEM CLICKED");
 
+        // default to NA if no region is selected
+        if(region.equals("")){
+            region = "NA1";
+        }
 
         loadSummoner(location, "NA1");
 
