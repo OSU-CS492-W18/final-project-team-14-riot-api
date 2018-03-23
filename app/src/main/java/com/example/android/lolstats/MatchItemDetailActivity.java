@@ -280,10 +280,5 @@ public class MatchItemDetailActivity extends AppCompatActivity {
                     .startChooser();
         }
     }
-
-//    @Override
-//    private void fillInLayoutText(RiotUtils.DetailedMatchData detailedMatchItem) {
-//
-//    }
 }
 
