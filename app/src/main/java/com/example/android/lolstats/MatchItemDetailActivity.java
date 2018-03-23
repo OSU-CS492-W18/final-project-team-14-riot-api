@@ -1,19 +1,15 @@
 package com.example.android.lolstats;
 
 import android.os.AsyncTask;
-import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.ShareCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -192,7 +188,7 @@ public class MatchItemDetailActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String data) {
-            Log.d(TAG, "got forecast from loader");
+            Log.d(TAG, "got data from AsyncTask");
             mLoadingPB.setVisibility(View.INVISIBLE);
             if (data != null) {
                 mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
@@ -251,7 +247,7 @@ public class MatchItemDetailActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.forecast_item_detail, menu);
+        getMenuInflater().inflate(R.menu.match_detail_item, menu);
         return true;
     }
 
@@ -272,7 +268,7 @@ public class MatchItemDetailActivity extends AppCompatActivity {
             Log.d(TAG, "TIME " + mMatchItem.timestamp);
             Log.d(TAG, "LANE " + mMatchItem.lane);
             String date = mDateFormatter.format(mMatchItem.timestamp);
-            String shareText = "Checkout game " + mMatchItem.gameId + " I played on " + date + " in the " + mMatchItem.lane + " lane!";
+            String shareText = "Checkout this game I played on " + date + " in the " + mMatchItem.lane + " lane!";
             ShareCompat.IntentBuilder.from(this)
                     .setType("text/plain")
                     .setText(shareText)

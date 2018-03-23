@@ -24,7 +24,7 @@ public class StatsLoader extends AsyncTaskLoader<String> {
     protected void onStartLoading() {
         if (mDataURL != null) {
             if (mCachedDataJSON != null) {
-                Log.d(TAG, "using cached forecast");
+                Log.d(TAG, "using cached data");
                 deliverResult(mCachedDataJSON);
             } else {
                 forceLoad();

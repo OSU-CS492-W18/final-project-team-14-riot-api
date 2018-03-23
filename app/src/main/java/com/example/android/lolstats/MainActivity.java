@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
-        Log.d(TAG, "got forecast from loader");
+        Log.d(TAG, "got data from loader");
         mLoadingPB.setVisibility(View.INVISIBLE);
         //Handles the return for the Summoner Data call
         if (data != null && loader.getId() == 0) {
