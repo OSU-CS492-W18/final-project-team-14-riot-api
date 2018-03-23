@@ -1,5 +1,6 @@
 package com.example.android.lolstats;
 
+import android.os.AsyncTask;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
@@ -18,26 +19,25 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.android.lolstats.utils.NetworkUtils;
 import com.example.android.lolstats.utils.RiotUtils;
 
+import java.io.IOException;
 import java.text.DateFormat;
 
 /**
  * Created by shane on 3/22/18.
  */
 
-public class MatchItemDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+public class MatchItemDetailActivity extends AppCompatActivity {
     private static final String TAG = MatchItemDetailActivity.class.getSimpleName();
 
     private static final String MATCH_HASHTAG = "#LOLStats";
     private static final DateFormat DATE_FORMATTER = DateFormat.getDateTimeInstance();
     private RiotUtils.MatchData mMatchItem;
     private RiotUtils.DetailedMatchData mDetailedMatchItem;
-    private static final String DETAILED_MATCH_VIEW_URL_KEY = "matchviewURL";
-    private static final int DETAILED_MATCH_VIEW_ID = 2;
     private ProgressBar mLoadingPB;
     private TextView mLoadingErrorMessageTV;
-    private static boolean mMatchDetailInitialLoad = true;
     private LinearLayout mContentView;
 
     private TextView mDateTV;
@@ -143,14 +143,79 @@ public class MatchItemDetailActivity extends AppCompatActivity implements Loader
         String detailedMatchURL = RiotUtils.buildDetailedMatchURL(gameId, region);
         Log.d(TAG, "detailedMatchURL: " + detailedMatchURL);
 
-        Bundle loaderArgs = new Bundle();
-        loaderArgs.putString(DETAILED_MATCH_VIEW_URL_KEY, detailedMatchURL);
-        LoaderManager loaderManager = getSupportLoaderManager();
-        if (mMatchDetailInitialLoad) {
-            mMatchDetailInitialLoad = false;
-            loaderManager.initLoader(DETAILED_MATCH_VIEW_ID, loaderArgs, this);
-        } else {
-            loaderManager.restartLoader(DETAILED_MATCH_VIEW_ID, loaderArgs, this);
+        new DetailedMatchTask().execute(detailedMatchURL);
+    }
+
+    public class DetailedMatchTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mLoadingPB.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(String... urls) {
+            String mDataURL = urls[0];
+            String dataResult = null;
+            if (mDataURL != null) {
+                Log.d(TAG, "loading data from Riot using this URL: " + mDataURL);
+                try {
+                    dataResult = NetworkUtils.doHTTPGet(mDataURL);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return dataResult;
+        }
+
+        @Override
+        protected void onPostExecute(String data) {
+            Log.d(TAG, "got forecast from loader");
+            mLoadingPB.setVisibility(View.INVISIBLE);
+            if (data != null) {
+                mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
+                mContentView.setVisibility(View.VISIBLE);
+                mDetailedMatchItem = RiotUtils.parseDetailedMatchData(data);
+                // set text views
+                mDateTV.setText("LULDATEHOLDER");
+                mBlueTeamWinTV.setText(mDetailedMatchItem.teams[0].win);
+                mRedTeamWinTV.setText(mDetailedMatchItem.teams[1].win);
+
+                mBlueTeamSummonerTV1.setText(mDetailedMatchItem.participantIdentities[0].player.summonerName);
+                mBlueTeamSummonerTV2.setText(mDetailedMatchItem.participantIdentities[1].player.summonerName);
+                mBlueTeamSummonerTV3.setText(mDetailedMatchItem.participantIdentities[2].player.summonerName);
+                mBlueTeamSummonerTV4.setText(mDetailedMatchItem.participantIdentities[3].player.summonerName);
+                mBlueTeamSummonerTV5.setText(mDetailedMatchItem.participantIdentities[4].player.summonerName);
+//            mBlueTeamKdaTV1.setText(mDetailedMatchItem);
+//            mBlueTeamKdaTV2.setText(mDetailedMatchItem);
+//            mBlueTeamKdaTV3.setText(mDetailedMatchItem);
+//            mBlueTeamKdaTV4.setText(mDetailedMatchItem);
+//            mBlueTeamKdaTV5.setText(mDetailedMatchItem);
+                mBlueTeamCsTV1.setText(mDetailedMatchItem.participants[0].stats.totalMinionsKilled);
+                mBlueTeamCsTV2.setText(mDetailedMatchItem.participants[1].stats.totalMinionsKilled);
+                mBlueTeamCsTV3.setText(mDetailedMatchItem.participants[2].stats.totalMinionsKilled);
+                mBlueTeamCsTV4.setText(mDetailedMatchItem.participants[3].stats.totalMinionsKilled);
+                mBlueTeamCsTV5.setText(mDetailedMatchItem.participants[4].stats.totalMinionsKilled);
+
+                mRedTeamSummonerTV1.setText(mDetailedMatchItem.participantIdentities[5].player.summonerName);
+                mRedTeamSummonerTV2.setText(mDetailedMatchItem.participantIdentities[6].player.summonerName);
+                mRedTeamSummonerTV3.setText(mDetailedMatchItem.participantIdentities[7].player.summonerName);
+                mRedTeamSummonerTV4.setText(mDetailedMatchItem.participantIdentities[8].player.summonerName);
+                mRedTeamSummonerTV5.setText(mDetailedMatchItem.participantIdentities[9].player.summonerName);
+//            mRedTeamKdaTV1.setText(mDetailedMatchItem);
+//            mRedTeamKdaTV2.setText(mDetailedMatchItem);
+//            mRedTeamKdaTV3.setText(mDetailedMatchItem);
+//            mRedTeamKdaTV4.setText(mDetailedMatchItem);
+//            mRedTeamKdaTV5.setText(mDetailedMatchItem);
+                mRedTeamCsTV1.setText(mDetailedMatchItem.participants[5].stats.totalMinionsKilled);
+                mRedTeamCsTV2.setText(mDetailedMatchItem.participants[6].stats.totalMinionsKilled);
+                mRedTeamCsTV3.setText(mDetailedMatchItem.participants[7].stats.totalMinionsKilled);
+                mRedTeamCsTV4.setText(mDetailedMatchItem.participants[8].stats.totalMinionsKilled);
+                mRedTeamCsTV5.setText(mDetailedMatchItem.participants[9].stats.totalMinionsKilled);
+            } else {
+                mContentView.setVisibility(View.INVISIBLE);
+                mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -190,69 +255,5 @@ public class MatchItemDetailActivity extends AppCompatActivity implements Loader
 //    private void fillInLayoutText(RiotUtils.DetailedMatchData detailedMatchItem) {
 //
 //    }
-
-    @Override
-    public Loader<String> onCreateLoader(int id, Bundle args) {
-        String detailedMatchViewURL = null;
-        if (args != null && id == 2) {
-            detailedMatchViewURL = args.getString(DETAILED_MATCH_VIEW_URL_KEY);
-        }
-        return new StatsLoader(this, DETAILED_MATCH_VIEW_URL_KEY);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<String> loader, String data) {
-        Log.d(TAG, "got forecast from loader");
-        mLoadingPB.setVisibility(View.INVISIBLE);
-        if (data != null) {
-            mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
-            mContentView.setVisibility(View.VISIBLE);
-            mDetailedMatchItem = RiotUtils.parseDetailedMatchData(data);
-            // set text views
-            mDateTV.setText("LULDATEHOLDER");
-            mBlueTeamWinTV.setText(mDetailedMatchItem.teams[0].win);
-            mRedTeamWinTV.setText(mDetailedMatchItem.teams[1].win);
-
-            mBlueTeamSummonerTV1.setText(mDetailedMatchItem.participantIdentities[0].player.summonerName);
-            mBlueTeamSummonerTV2.setText(mDetailedMatchItem.participantIdentities[1].player.summonerName);
-            mBlueTeamSummonerTV3.setText(mDetailedMatchItem.participantIdentities[2].player.summonerName);
-            mBlueTeamSummonerTV4.setText(mDetailedMatchItem.participantIdentities[3].player.summonerName);
-            mBlueTeamSummonerTV5.setText(mDetailedMatchItem.participantIdentities[4].player.summonerName);
-//            mBlueTeamKdaTV1.setText(mDetailedMatchItem);
-//            mBlueTeamKdaTV2.setText(mDetailedMatchItem);
-//            mBlueTeamKdaTV3.setText(mDetailedMatchItem);
-//            mBlueTeamKdaTV4.setText(mDetailedMatchItem);
-//            mBlueTeamKdaTV5.setText(mDetailedMatchItem);
-            mBlueTeamCsTV1.setText(mDetailedMatchItem.participants[0].stats.totalMinionsKilled);
-            mBlueTeamCsTV2.setText(mDetailedMatchItem.participants[1].stats.totalMinionsKilled);
-            mBlueTeamCsTV3.setText(mDetailedMatchItem.participants[2].stats.totalMinionsKilled);
-            mBlueTeamCsTV4.setText(mDetailedMatchItem.participants[3].stats.totalMinionsKilled);
-            mBlueTeamCsTV5.setText(mDetailedMatchItem.participants[4].stats.totalMinionsKilled);
-
-            mRedTeamSummonerTV1.setText(mDetailedMatchItem.participantIdentities[5].player.summonerName);
-            mRedTeamSummonerTV2.setText(mDetailedMatchItem.participantIdentities[6].player.summonerName);
-            mRedTeamSummonerTV3.setText(mDetailedMatchItem.participantIdentities[7].player.summonerName);
-            mRedTeamSummonerTV4.setText(mDetailedMatchItem.participantIdentities[8].player.summonerName);
-            mRedTeamSummonerTV5.setText(mDetailedMatchItem.participantIdentities[9].player.summonerName);
-//            mRedTeamKdaTV1.setText(mDetailedMatchItem);
-//            mRedTeamKdaTV2.setText(mDetailedMatchItem);
-//            mRedTeamKdaTV3.setText(mDetailedMatchItem);
-//            mRedTeamKdaTV4.setText(mDetailedMatchItem);
-//            mRedTeamKdaTV5.setText(mDetailedMatchItem);
-            mRedTeamCsTV1.setText(mDetailedMatchItem.participants[5].stats.totalMinionsKilled);
-            mRedTeamCsTV2.setText(mDetailedMatchItem.participants[6].stats.totalMinionsKilled);
-            mRedTeamCsTV3.setText(mDetailedMatchItem.participants[7].stats.totalMinionsKilled);
-            mRedTeamCsTV4.setText(mDetailedMatchItem.participants[8].stats.totalMinionsKilled);
-            mRedTeamCsTV5.setText(mDetailedMatchItem.participants[9].stats.totalMinionsKilled);
-        } else {
-            mContentView.setVisibility(View.INVISIBLE);
-            mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<String> loader) {
-        // Nothing ...
-    }
 }
 

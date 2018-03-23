@@ -35,16 +35,16 @@ public class StatsLoader extends AsyncTaskLoader<String> {
     @Nullable
     @Override
     public String loadInBackground() {
-        String forecastJSON = null;
+        String dataJSON = null;
         if (mDataURL != null) {
-            Log.d(TAG, "loading forecast from OpenWeatherMap using this URL: " + mDataURL);
+            Log.d(TAG, "loading data from Riot using this URL: " + mDataURL);
             try {
-                forecastJSON = NetworkUtils.doHTTPGet(mDataURL);
+                dataJSON = NetworkUtils.doHTTPGet(mDataURL);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return forecastJSON;
+        return dataJSON;
     }
 
     @Override
