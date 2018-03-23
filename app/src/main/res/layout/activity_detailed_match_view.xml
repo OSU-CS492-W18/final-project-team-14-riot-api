@@ -56,6 +56,8 @@
 
         </LinearLayout>
 
+    </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -501,14 +503,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/colorRedLight">
+                android:background="@color/colorRedLight"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorRed"
-                    android:text="@string/match_stats"/>
+                    android:text="@string/match_stats" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -519,12 +521,12 @@
                     <TextView
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/towers_destroyed"/>
+                        android:text="@string/towers_destroyed" />
 
                     <TextView
                         android:id="@+id/tv_red_towers"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
@@ -537,12 +539,12 @@
                     <TextView
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/inhibitors_destroyed"/>
+                        android:text="@string/inhibitors_destroyed" />
 
                     <TextView
                         android:id="@+id/tv_red_inhibitors"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
@@ -555,12 +557,12 @@
                     <TextView
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/barons_destroyed"/>
+                        android:text="@string/barons_destroyed" />
 
                     <TextView
                         android:id="@+id/tv_red_barons"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
@@ -573,19 +575,17 @@
                     <TextView
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/dragons_slain"/>
+                        android:text="@string/dragons_slain" />
 
                     <TextView
                         android:id="@+id/tv_red_dragons"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-    </LinearLayout>
-
-
+        </LinearLayout>
 
 </LinearLayout>
