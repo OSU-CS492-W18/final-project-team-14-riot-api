@@ -5,12 +5,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <!--blue team
-        players recyclerview
-        towers taken:
-        inhibitores taken:
-        barons taken:
-        Dreagon: -->
+    <!--******************************BLUE TEAM****************************-->
+
 
     <TextView
         android:id="@+id/tv_detailed_match_date"
@@ -33,7 +29,7 @@
             android:textColor="#000"/>
 
         <TextView
-            android:id="@+id/tv_match_outcome_status"
+            android:id="@+id/tv_match_outcome_blue"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="#ff0004"
@@ -89,13 +85,6 @@
                 android:paddingLeft="20dp"
                 android:text="CS" />
 
-            <TextView
-                android:id="@+id/tv_detailed_champ_P1"
-                android:layout_width="102dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:text="Champion" />
         </LinearLayout>
 
         <LinearLayout
@@ -127,13 +116,6 @@
                 android:paddingLeft="20dp"
                 android:text="CS" />
 
-            <TextView
-                android:id="@+id/tv_detailed_champ_P2"
-                android:layout_width="102dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:text="Champion" />
         </LinearLayout>
 
         <LinearLayout
@@ -165,13 +147,6 @@
                 android:paddingLeft="20dp"
                 android:text="CS" />
 
-            <TextView
-                android:id="@+id/tv_detailed_champ_P3"
-                android:layout_width="102dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:text="Champion" />
         </LinearLayout>
 
         <LinearLayout
@@ -203,13 +178,6 @@
                 android:paddingLeft="20dp"
                 android:text="CS" />
 
-            <TextView
-                android:id="@+id/tv_detailed_champ_P4"
-                android:layout_width="102dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:text="Champion" />
         </LinearLayout>
 
         <LinearLayout
@@ -241,14 +209,6 @@
                 android:paddingLeft="20dp"
                 android:text="CS" />
 
-            <TextView
-                android:id="@+id/tv_detailed_champ_P5"
-                android:layout_width="102dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:text="Champion" />
-
 
         </LinearLayout>
 
@@ -274,14 +234,12 @@
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/towers_destroyed"
-                    />
+                    android:text="@string/towers_destroyed"/>
 
                 <TextView
                     android:id="@+id/tv_blue_towers"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    />
+                    android:layout_height="match_parent"/>
 
             </LinearLayout>
 
@@ -294,14 +252,12 @@
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/inhibitors_destroyed"
-                    />
+                    android:text="@string/inhibitors_destroyed"/>
 
                 <TextView
                     android:id="@+id/tv_blue_inhibitors"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    />
+                    android:layout_height="match_parent"/>
 
             </LinearLayout>
 
@@ -314,14 +270,12 @@
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/barons_destroyed"
-                    />
+                    android:text="@string/barons_destroyed"/>
 
                 <TextView
                     android:id="@+id/tv_blue_barons"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    />
+                    android:layout_height="match_parent"/>
 
             </LinearLayout>
 
@@ -334,18 +288,301 @@
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/inhibitors_destroyed"
-                    />
+                    android:text="@string/dragons_slain"/>
 
                 <TextView
-                    android:id="@+id/tv_blue_inhibitors"
+                    android:id="@+id/tv_blue_dragons"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    />
+                    android:layout_height="match_parent"/>
 
             </LinearLayout>
 
         </LinearLayout>
+
+        <!--******************************RED TEAM****************************-->
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorRed">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/match_team_blue"
+                android:textColor="#000"/>
+
+            <TextView
+                android:id="@+id/tv_match_outcome_red"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#ff0004"
+                android:textAlignment="center"
+                android:text="OUTCOME"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorRed"
+                    android:text="@string/match_players"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/colorRedLight">
+
+                <TextView
+                    android:id="@+id/tv_detailed_name_P6"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="Summoner" />
+
+                <TextView
+                    android:id="@+id/tv_detailed_kda_P6"
+                    android:layout_width="74dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="20dp"
+                    android:text="K/D/A" />
+
+                <TextView
+                    android:id="@+id/tv_detailed_cs_P6"
+                    android:layout_width="49dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="20dp"
+                    android:text="CS" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/colorRedLight">
+
+                <TextView
+                    android:id="@+id/tv_detailed_name_P7"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="Summoner" />
+
+                <TextView
+                    android:id="@+id/tv_detailed_kda_P7"
+                    android:layout_width="74dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="20dp"
+                    android:text="K/D/A" />
+
+                <TextView
+                    android:id="@+id/tv_detailed_cs_P7"
+                    android:layout_width="49dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="20dp"
+                    android:text="CS" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/colorRedLight">
+
+                <TextView
+                    android:id="@+id/tv_detailed_name_P8"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="Summoner" />
+
+                <TextView
+                    android:id="@+id/tv_detailed_kda_P8"
+                    android:layout_width="74dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="20dp"
+                    android:text="K/D/A" />
+
+                <TextView
+                    android:id="@+id/tv_detailed_cs_P8"
+                    android:layout_width="49dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="20dp"
+                    android:text="CS" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/colorRedLight">
+
+                <TextView
+                    android:id="@+id/tv_detailed_name_P9"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="Summoner" />
+
+                <TextView
+                    android:id="@+id/tv_detailed_kda_P9"
+                    android:layout_width="74dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="20dp"
+                    android:text="K/D/A" />
+
+                <TextView
+                    android:id="@+id/tv_detailed_cs_P9"
+                    android:layout_width="49dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="20dp"
+                    android:text="CS" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@color/colorRedLight">
+
+                <TextView
+                    android:id="@+id/tv_detailed_name_P10"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="Summoner" />
+
+                <TextView
+                    android:id="@+id/tv_detailed_kda_P10"
+                    android:layout_width="74dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="20dp"
+                    android:text="K/D/A" />
+
+                <TextView
+                    android:id="@+id/tv_detailed_cs_P10"
+                    android:layout_width="49dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="20dp"
+                    android:text="CS" />
+
+
+            </LinearLayout>
+
+            <!--Layout for each stat item-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/colorRedLight">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorRed"
+                    android:text="@string/match_stats"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/towers_destroyed"/>
+
+                    <TextView
+                        android:id="@+id/tv_red_towers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/inhibitors_destroyed"/>
+
+                    <TextView
+                        android:id="@+id/tv_red_inhibitors"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/barons_destroyed"/>
+
+                    <TextView
+                        android:id="@+id/tv_red_barons"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dragons_slain"/>
+
+                    <TextView
+                        android:id="@+id/tv_red_dragons"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
     </LinearLayout>
 
