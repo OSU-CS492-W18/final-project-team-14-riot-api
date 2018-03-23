@@ -32,6 +32,7 @@ import java.text.DateFormat;
 public class MatchItemDetailActivity extends AppCompatActivity {
     private static final String TAG = MatchItemDetailActivity.class.getSimpleName();
 
+    private final DateFormat mDateFormatter = DateFormat.getDateTimeInstance();
     private static final String MATCH_HASHTAG = "#LOLStats";
     private static final DateFormat DATE_FORMATTER = DateFormat.getDateTimeInstance();
     private RiotUtils.MatchData mMatchItem;
@@ -59,6 +60,10 @@ public class MatchItemDetailActivity extends AppCompatActivity {
     private TextView mBlueTeamCsTV3;
     private TextView mBlueTeamCsTV4;
     private TextView mBlueTeamCsTV5;
+    private TextView mBlueTeamTowerTV;
+    private TextView mBlueTeamInhibitorTV;
+    private TextView mBlueTeamDragonTV;
+    private TextView mBlueTeamBaronTV;
 
     private TextView mRedTeamSummonerTV1;
     private TextView mRedTeamSummonerTV2;
@@ -75,6 +80,10 @@ public class MatchItemDetailActivity extends AppCompatActivity {
     private TextView mRedTeamCsTV3;
     private TextView mRedTeamCsTV4;
     private TextView mRedTeamCsTV5;
+    private TextView mRedTeamTowerTV;
+    private TextView mRedTeamInhibitorTV;
+    private TextView mRedTeamDragonTV;
+    private TextView mRedTeamBaronTV;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +115,10 @@ public class MatchItemDetailActivity extends AppCompatActivity {
         mBlueTeamCsTV3 = findViewById(R.id.tv_detailed_cs_P3);
         mBlueTeamCsTV4 = findViewById(R.id.tv_detailed_cs_P4);
         mBlueTeamCsTV5 = findViewById(R.id.tv_detailed_cs_P5);
+        mBlueTeamTowerTV = findViewById(R.id.tv_blue_towers);
+        mBlueTeamInhibitorTV = findViewById(R.id.tv_blue_inhibitors);
+        mBlueTeamDragonTV = findViewById(R.id.tv_blue_dragons);
+        mBlueTeamBaronTV = findViewById(R.id.tv_blue_barons);
 
         mRedTeamSummonerTV1 = findViewById(R.id.tv_detailed_name_P6);
         mRedTeamSummonerTV2 = findViewById(R.id.tv_detailed_name_P7);
@@ -122,6 +135,10 @@ public class MatchItemDetailActivity extends AppCompatActivity {
         mRedTeamCsTV3 = findViewById(R.id.tv_detailed_cs_P8);
         mRedTeamCsTV4 = findViewById(R.id.tv_detailed_cs_P9);
         mRedTeamCsTV5 = findViewById(R.id.tv_detailed_cs_P10);
+        mRedTeamTowerTV = findViewById(R.id.tv_red_towers);
+        mRedTeamInhibitorTV = findViewById(R.id.tv_red_inhibitors);
+        mRedTeamDragonTV = findViewById(R.id.tv_red_dragons);
+        mRedTeamBaronTV = findViewById(R.id.tv_red_barons);
 
         String region = sharedPreferences.getString(
                 getString(R.string.pref_region_key),
@@ -182,9 +199,10 @@ public class MatchItemDetailActivity extends AppCompatActivity {
                 mContentView.setVisibility(View.VISIBLE);
                 mDetailedMatchItem = RiotUtils.parseDetailedMatchData(data);
                 // set text views
-                mDateTV.setText("LULDATEHOLDER");
+                mDateTV.setText(mDateFormatter.format(mDetailedMatchItem.gameCreation));
                 mBlueTeamWinTV.setText(mDetailedMatchItem.teams[0].win);
                 mRedTeamWinTV.setText(mDetailedMatchItem.teams[1].win);
+
 
                 mBlueTeamSummonerTV1.setText(mDetailedMatchItem.participantIdentities[0].player.summonerName);
                 mBlueTeamSummonerTV2.setText(mDetailedMatchItem.participantIdentities[1].player.summonerName);
@@ -201,6 +219,10 @@ public class MatchItemDetailActivity extends AppCompatActivity {
                 mBlueTeamCsTV3.setText(mDetailedMatchItem.participants[2].stats.totalMinionsKilled);
                 mBlueTeamCsTV4.setText(mDetailedMatchItem.participants[3].stats.totalMinionsKilled);
                 mBlueTeamCsTV5.setText(mDetailedMatchItem.participants[4].stats.totalMinionsKilled);
+                mBlueTeamTowerTV.setText(mDetailedMatchItem.teams[0].towerKills);
+                mBlueTeamInhibitorTV.setText(mDetailedMatchItem.teams[0].inhibitorKills);
+                mBlueTeamDragonTV.setText(mDetailedMatchItem.teams[0].dragonKills);
+                mBlueTeamBaronTV.setText(mDetailedMatchItem.teams[0].baronKills);
 
                 mRedTeamSummonerTV1.setText(mDetailedMatchItem.participantIdentities[5].player.summonerName);
                 mRedTeamSummonerTV2.setText(mDetailedMatchItem.participantIdentities[6].player.summonerName);
@@ -217,6 +239,10 @@ public class MatchItemDetailActivity extends AppCompatActivity {
                 mRedTeamCsTV3.setText(mDetailedMatchItem.participants[7].stats.totalMinionsKilled);
                 mRedTeamCsTV4.setText(mDetailedMatchItem.participants[8].stats.totalMinionsKilled);
                 mRedTeamCsTV5.setText(mDetailedMatchItem.participants[9].stats.totalMinionsKilled);
+                mRedTeamTowerTV.setText(mDetailedMatchItem.teams[1].towerKills);
+                mRedTeamInhibitorTV.setText(mDetailedMatchItem.teams[1].inhibitorKills);
+                mRedTeamDragonTV.setText(mDetailedMatchItem.teams[1].dragonKills);
+                mRedTeamBaronTV.setText(mDetailedMatchItem.teams[1].baronKills);
             } else {
                 mContentView.setVisibility(View.INVISIBLE);
                 mLoadingErrorMessageTV.setVisibility(View.VISIBLE);

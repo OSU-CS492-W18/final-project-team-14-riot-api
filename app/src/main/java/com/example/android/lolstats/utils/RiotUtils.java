@@ -77,6 +77,7 @@ public class RiotUtils {
         public ParticipantIdentity[] participantIdentities;
         public TeamStats[] teams;
         public Participants[] participants;
+        public long gameCreation;
     }
 
     public static class ParticipantIdentity {
