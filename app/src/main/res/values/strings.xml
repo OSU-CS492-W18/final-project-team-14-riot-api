@@ -50,5 +50,6 @@ d
     <string name="dragons_slain">Dragons Slain:</string>
     <string name="match_role">Role:</string>
     <string name="match_team_red">Red Team:</string>
+    <string name="last_20_games">Last 20 Games: </string>
 
 </resources>

@@ -33,11 +33,7 @@ public class ForecastItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_match_view);
 
-        mDateTV = findViewById(R.id.tv_date);
-        mTempDescriptionTV = findViewById(R.id.tv_temp_description);
-        mLowHighTempTV = findViewById(R.id.tv_low_high_temp);
-        mWindTV = findViewById(R.id.tv_wind);
-        mHumidityTV = findViewById(R.id.tv_humidity);
+        mDateTV = findViewById(R.id.tv_match_date);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mForecastLocation = sharedPreferences.getString(

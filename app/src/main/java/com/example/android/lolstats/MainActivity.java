@@ -33,7 +33,11 @@ import com.example.android.lolstats.utils.OpenWeatherMapUtils;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements ForecastAdapter.OnForecastItemClickListener, LoaderManager.LoaderCallbacks<String>, SharedPreferences.OnSharedPreferenceChangeListener, NavigationViewAdapter.OnNavigationItemClickListener {
+        implements
+        ForecastAdapter.OnForecastItemClickListener,
+        LoaderManager.LoaderCallbacks<String>,
+        SharedPreferences.OnSharedPreferenceChangeListener,
+        NavigationViewAdapter.OnNavigationItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String FORECAST_URL_KEY = "forecastURL";
@@ -240,7 +244,7 @@ public class MainActivity extends AppCompatActivity
         if (args != null) {
             forecastURL = args.getString(FORECAST_URL_KEY);
         }
-        return new ForecastLoader(this, forecastURL);
+        return new StatsLoader(this, forecastURL);
     }
 
     @Override

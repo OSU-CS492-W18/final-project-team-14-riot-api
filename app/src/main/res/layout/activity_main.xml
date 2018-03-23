@@ -18,13 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:background="@color/colorPrimary"
             android:gravity="center_horizontal"
+            android:background="@color/colorPrimary"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/et_search_box"
-                android:layout_width="wrap_content"
+                android:layout_width="275dp"
                 android:layout_height="wrap_content"
                 android:hint="Search New Profile...."
                 android:textSize="24sp" />
@@ -46,21 +46,32 @@
             android:orientation="vertical"
             android:padding="12dp">
 
-            <EditText
-                android:id="@+id/et_search_box"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:hint="Search summoner..."/>
+                android:text="Summoner Profile:"/>
 
             <TextView
                 android:id="@+id/tv_summoner_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:textColor="#fff"
+                android:textColor="#000"
                 android:textSize="42sp"
-                android:layout_marginStart="8dp" />
+                android:layout_marginStart="8dp"
+                android:text="Test Name"/>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:paddingTop="2dp"
+                android:background="@color/colorAccent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:text="@string/last_20_games"/>
 
         </LinearLayout>
 
