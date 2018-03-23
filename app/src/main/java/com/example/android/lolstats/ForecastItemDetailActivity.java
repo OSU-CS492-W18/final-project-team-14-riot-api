@@ -31,7 +31,7 @@ public class ForecastItemDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forecast_item_detail);
+        setContentView(R.layout.activity_detailed_match_view);
 
         mDateTV = findViewById(R.id.tv_date);
         mTempDescriptionTV = findViewById(R.id.tv_temp_description);

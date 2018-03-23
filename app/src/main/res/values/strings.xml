@@ -39,4 +39,7 @@ d
     <!-- Strings for opening and closing the drawer -->
     <string name="drawer_close">close the drawer</string>
     <string name="drawer_open">open the drawer</string>
+
+    <!-- Strings for detailed match view-->
+    <string name="match_team_blue">Blue Team</string>
 </resources>
