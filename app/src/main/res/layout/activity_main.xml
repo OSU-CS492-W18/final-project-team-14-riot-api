@@ -58,8 +58,7 @@
                 android:layout_marginLeft="8dp"
                 android:textColor="#000"
                 android:textSize="42sp"
-                android:layout_marginStart="8dp"
-                android:text="Test Name"/>
+                android:layout_marginStart="8dp"/>
 
             <View
                 android:layout_width="wrap_content"
