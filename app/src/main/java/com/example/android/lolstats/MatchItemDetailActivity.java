@@ -118,7 +118,7 @@ public class MatchItemDetailActivity extends AppCompatActivity {
         mBlueTeamTowerTV = findViewById(R.id.tv_blue_towers);
         mBlueTeamInhibitorTV = findViewById(R.id.tv_blue_inhibitors);
         mBlueTeamDragonTV = findViewById(R.id.tv_blue_dragons);
-        mBlueTeamBaronTV = findViewById(R.id.tv_blue_inhibitors);
+        mBlueTeamBaronTV = findViewById(R.id.tv_blue_barons);
 
         mRedTeamSummonerTV1 = findViewById(R.id.tv_detailed_name_P6);
         mRedTeamSummonerTV2 = findViewById(R.id.tv_detailed_name_P7);
@@ -138,7 +138,7 @@ public class MatchItemDetailActivity extends AppCompatActivity {
         mRedTeamTowerTV = findViewById(R.id.tv_red_towers);
         mRedTeamInhibitorTV = findViewById(R.id.tv_red_inhibitors);
         mRedTeamDragonTV = findViewById(R.id.tv_red_dragons);
-        mRedTeamBaronTV = findViewById(R.id.tv_red_inhibitors);
+        mRedTeamBaronTV = findViewById(R.id.tv_red_barons);
 
         String region = sharedPreferences.getString(
                 getString(R.string.pref_region_key),
