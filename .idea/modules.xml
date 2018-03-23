@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidStudioProjects-final-project-team-14-riot-api.iml" filepath="$PROJECT_DIR$/AndroidStudioProjects-final-project-team-14-riot-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/final-project-team-14-riot-api.iml" filepath="$PROJECT_DIR$/final-project-team-14-riot-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/final-project-team-14-riot-api-app.iml" filepath="$PROJECT_DIR$/app/final-project-team-14-riot-api-app.iml" />
     </modules>
   </component>
 </project>

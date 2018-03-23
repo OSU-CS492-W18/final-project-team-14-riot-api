@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     //saveSummoner(searchQuery);
                     updateSummonerInDatabase(searchQuery);
                     mNavigationViewAdapter.updateRecentLocations(getRecentSummonerSearches());
-
+                    loadSummoner(searchQuery, "NA1");
                 }
             }
         });
@@ -119,6 +119,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mLoadingPB.setVisibility(View.VISIBLE);
 
         String summonerURL = RiotUtils.buildSummonerSearchURL(summonerName, region);
+        Log.d(TAG, "summonerURL: " + summonerURL);
+
         Bundle loaderArgs = new Bundle();
         loaderArgs.putString(SUMMONER_URL_KEY, summonerURL);
         LoaderManager loaderManager = getSupportLoaderManager();
@@ -147,9 +149,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Log.d(TAG, "got forecast from loader");
         //Handles the return for the Summoner Data call
         if (data != null && loader.getId() == 0) {
+            Log.d(TAG, "summonerData: " + data);
             mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
 
             RiotUtils.SummonerDataResults dataResults = RiotUtils.parseSummonerDataJSON(data);
+            Log.d(TAG, "dataResults.name: " + dataResults.name);
 
             mSummonerTV.setText(dataResults.name);
             String recentMatchURL = RiotUtils.buildRecentMatchesURL(dataResults.accountId, "NA1");
@@ -166,15 +170,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
         //Handles the return for the recent Match Data call
         else if (data != null && loader.getId() == 1) {
+            Log.d(TAG, "recentMatchData: " + data);
             mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
-//            mForecastItemsRV.setVisibility(View.VISIBLE);
+            mLoadingPB.setVisibility(View.INVISIBLE);
+            mRecentMatchesRV.setVisibility(View.VISIBLE);
 
             RiotUtils.MatchData[] matchData = RiotUtils.parseRecentMatchDataJSON(data);
 
             //set The adapter for the matchData
+            mRecentMatchAdapter.updateMatchDataItem(matchData);
         }
         else {
-//            mForecastItemsRV.setVisibility(View.INVISIBLE);
+            mRecentMatchesRV.setVisibility(View.INVISIBLE);
             mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
         }
     }

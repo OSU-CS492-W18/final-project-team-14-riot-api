@@ -26,7 +26,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchItemVie
         mMatchItemClickListener = clickListener;
     }
 
-    public void updateForecastItem(RiotUtils.MatchData[] matchData) {
+    public void updateMatchDataItem(RiotUtils.MatchData[] matchData) {
         mMatchData = matchData;
         notifyDataSetChanged();
     }
