@@ -268,12 +268,11 @@ public class MatchItemDetailActivity extends AppCompatActivity {
 
     public void shareMatchItem() {
         if (mDetailedMatchItem != null) {
-//            String shareText = "Weather for " + mForecastLocation +
-//                    ", " + DATE_FORMATTER.format(mForecastItem.dateTime) +
-//                    ": " + mForecastItem.temperature + mTemperatureUnitsAbbr +
-//                    " - " + mForecastItem.description +
-//                    " " + FORECAST_HASHTAG;
-            String shareText = "ThisIsTheMatchItem";
+            Log.d(TAG, "MATCH ID " + mMatchItem.gameId);
+            Log.d(TAG, "TIME " + mMatchItem.timestamp);
+            Log.d(TAG, "LANE " + mMatchItem.lane);
+            String date = mDateFormatter.format(mMatchItem.timestamp);
+            String shareText = "Checkout game " + mMatchItem.gameId + " I played on " + date + " in the " + mMatchItem.lane + " lane!";
             ShareCompat.IntentBuilder.from(this)
                     .setType("text/plain")
                     .setText(shareText)
